@@ -20,11 +20,13 @@ export interface ShlinkShortUrl {
   shortCode: string;
   shortUrl: string;
   longUrl: string;
-  deviceLongUrls?: Required<ShlinkDeviceLongUrls>, // Optional only before Shlink 3.5.0
+  /** Optional only before Shlink 3.5.0 */
+  deviceLongUrls?: Required<ShlinkDeviceLongUrls>,
   dateCreated: string;
-  /** @deprecated */
-  visitsCount: number; // Deprecated since Shlink 3.4.0
-  visitsSummary?: ShlinkVisitsSummary; // Optional only before Shlink 3.4.0
+  /** @deprecated Use `visitsSummary.total` instead */
+  visitsCount: number;
+  /** Optional only before Shlink 3.4.0 */
+  visitsSummary?: ShlinkVisitsSummary;
   meta: Required<Nullable<ShlinkShortUrlMeta>>;
   tags: string[];
   domain: string | null;
@@ -44,7 +46,7 @@ export interface ShlinkEditShortUrlData {
   validUntil?: string | null;
   maxVisits?: number | null;
 
-  /** @deprecated */
+  /** @deprecated To be removed in Shlink 4.0.0 */
   validateUrl?: boolean;
 }
 
@@ -79,9 +81,10 @@ export interface ShlinkHealth {
 export interface ShlinkTagsStats {
   tag: string;
   shortUrlsCount: number;
-  visitsSummary?: ShlinkVisitsSummary; // Optional only before Shlink 3.5.0
+  /** Optional only before Shlink 3.5.0 */
+  visitsSummary?: ShlinkVisitsSummary;
 
-  /** @deprecated */
+  /** @deprecated Use `visitsSummary.total` instead */
   visitsCount: number;
 }
 
@@ -93,7 +96,7 @@ export interface ShlinkTags {
 export interface ShlinkTagsResponse {
   data: string[];
   /** @deprecated Present only when withStats=true is provided, which is deprecated */
-  stats: ShlinkTagsStats[];
+  stats?: ShlinkTagsStats[];
 }
 
 export interface ShlinkTagsStatsResponse {
@@ -146,12 +149,14 @@ export interface ShlinkVisits {
 }
 
 export interface ShlinkVisitsOverview {
-  nonOrphanVisits?: ShlinkVisitsSummary; // Optional only before Shlink 3.5.0
-  orphanVisits?: ShlinkVisitsSummary; // Optional only before Shlink 3.5.0
+  /** Optional only before Shlink 3.5.0 */
+  nonOrphanVisits?: ShlinkVisitsSummary;
+  /** Optional only before Shlink 3.5.0 */
+  orphanVisits?: ShlinkVisitsSummary;
 
-  /** @deprecated */
+  /** @deprecated Use `nonOrphanVisits.total` instead */
   visitsCount: number;
-  /** @deprecated */
+  /** @deprecated Use `orphanVisits.total` instead */
   orphanVisitsCount: number;
 }
 

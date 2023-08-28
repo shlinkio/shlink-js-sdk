@@ -117,7 +117,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   public async listTags(): Promise<ShlinkTags> {
     return this.performRequest<{ tags: ShlinkTagsResponse }>({ url: '/tags', query: { withStats: 'true' } })
       .then(({ tags }) => tags)
-      .then(({ data, stats }) => ({ tags: data, stats }));
+      .then(({ data, stats = [] }) => ({ tags: data, stats }));
   }
 
   public async tagsStats(): Promise<ShlinkTags> {
