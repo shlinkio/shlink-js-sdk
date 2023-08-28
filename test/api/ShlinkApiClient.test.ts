@@ -199,7 +199,7 @@ describe('ShlinkApiClient', () => {
 
       const result = await apiClient.listTags();
 
-      expect({ tags: expectedTags }).toEqual(result);
+      expect(result).toEqual({ tags: expectedTags, stats: [] });
       expect(jsonRequest).toHaveBeenCalledWith(
         expect.stringContaining('/tags'),
         expect.objectContaining({ method: 'GET' }),
