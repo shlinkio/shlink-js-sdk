@@ -30,7 +30,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "echo \"No build defined\" && exit 0",
+    "build": "vite build",
     "test": "vitest run",
     "test:ci": "npm run test -- --coverage",
     "lint": "eslint --ext .ts src test",
