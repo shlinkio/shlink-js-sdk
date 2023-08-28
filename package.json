@@ -1,6 +1,6 @@
 {
   "name": "@shlinkio/shlink-js-sdk",
-  "description": "A javascript client for the browser and nodejs, to consume shlink's REST API",
+  "description": "A javascript client for the browser and nodejs, to consume Shlink's REST API",
   "homepage": "https://shlink.io",
   "author": "Alejandro Celaya <alejandro@alejandrocelaya.com>",
   "license": "MIT",

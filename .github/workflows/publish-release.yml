@@ -1,0 +1,11 @@
+name: Publish release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  ci:
+    uses: shlinkio/github-actions/.github/workflows/js-lib-publish.yml@main
+    secrets: inherit
