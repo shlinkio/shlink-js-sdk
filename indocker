@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+docker compose run shlink_js_sdk /bin/sh -c "cd /shlink-js-sdk && $*"

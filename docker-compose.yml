@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+    shlink_js_sdk:
+        container_name: shlink_js_sdk
+        image: node:20.5-alpine
+        volumes:
+            - ./:/shlink-js-sdk
+        ports:
+            - '3003:3003'
