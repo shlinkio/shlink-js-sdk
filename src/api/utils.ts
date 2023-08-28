@@ -35,6 +35,10 @@ export const isRegularNotFound = (error: unknown): boolean => {
 
 export const replaceAuthorityFromUri = (uri: string, newAuthority: string): string => {
   const [schema, rest] = uri.split('://');
+  if (!rest) {
+    throw new Error(`It is not possible to determine authority on "${uri}" for replacement`);
+  }
+
   const [, ...pathParts] = rest.split('/');
   const normalizedPath = pathParts.length ? `/${pathParts.join('/')}` : '';
 

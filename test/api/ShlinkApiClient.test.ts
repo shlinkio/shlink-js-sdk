@@ -22,7 +22,7 @@ describe('ShlinkApiClient', () => {
   let apiClient: ShlinkApiClient;
 
   beforeEach(() => {
-    apiClient = new ShlinkApiClient(httpClient, { baseUrl: '', apiKey: '' });
+    apiClient = new ShlinkApiClient(httpClient, { baseUrl: 'https://s.test', apiKey: '' });
   });
 
   describe('listShortUrls', () => {
@@ -269,17 +269,28 @@ describe('ShlinkApiClient', () => {
   });
 
   describe('health', () => {
-    it('returns health data', async () => {
-      const expectedData = {
-        status: 'pass',
-        version: '1.19.0',
-      };
-      jsonRequest.mockResolvedValue(expectedData);
+    const expectedData = {
+      status: 'pass',
+      version: '1.19.0',
+    };
 
+    beforeEach(() => {
+      jsonRequest.mockResolvedValue(expectedData);
+    });
+
+    it('returns health data', async () => {
       const result = await apiClient.health();
 
-      expect(jsonRequest).toHaveBeenCalled();
+      expect(jsonRequest).toHaveBeenCalledWith(expect.stringMatching(/^https:\/\/s.test/), expect.anything());
       expect(result).toEqual(expectedData);
+    });
+
+    it('allows domain to be overwritten', async () => {
+      await apiClient.health('another-domain.test');
+      expect(jsonRequest).toHaveBeenCalledWith(
+        expect.stringMatching(/^https:\/\/another-domain.test/),
+        expect.anything(),
+      );
     });
   });
 
