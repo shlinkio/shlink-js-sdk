@@ -1,13 +1,8 @@
-import type { RequestOptions } from '../../src';
 import { FetchHttpClient } from '../../src/browser';
 
 describe('FetchHttpClient', () => {
   const fetch = vi.fn();
   const httpClient = new FetchHttpClient(fetch);
-  const requestOptions = (options: Omit<RequestOptions, 'method'>): RequestOptions => ({
-    method: 'GET',
-    ...options,
-  });
 
   describe('jsonRequest', () => {
     it('throws json on success', async () => {
@@ -19,9 +14,9 @@ describe('FetchHttpClient', () => {
 
     it.each([
       [undefined],
-      [requestOptions({})],
-      [requestOptions({ body: undefined })],
-      [requestOptions({ body: '' })],
+      [{}],
+      [{ body: undefined }],
+      [{ body: '' }],
     ])('return json on failure', async (options) => {
       const theJson = { foo: 'bar' };
       fetch.mockResolvedValue({ json: () => theJson, ok: true });
@@ -33,13 +28,13 @@ describe('FetchHttpClient', () => {
     });
 
     it.each([
-      [requestOptions({ body: 'the_body' })],
-      [requestOptions({
+      [{ body: 'the_body' }],
+      [{
         body: 'the_body',
         headers: {
           'Content-Type': 'text/plain',
         },
-      })],
+      }],
     ])('forwards JSON content-type when appropriate', async (options) => {
       const theJson = { foo: 'bar' };
       fetch.mockResolvedValue({ json: () => theJson, ok: true });

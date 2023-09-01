@@ -12,7 +12,12 @@ export default defineConfig({
         index: resolve(__dirname, 'src/index.ts'),
         'api-contract': resolve(__dirname, 'src/api-contract/index.ts'),
         browser: resolve(__dirname, 'src/browser/index.ts'),
+        node: resolve(__dirname, 'src/node/index.ts'),
       },
+    },
+    rollupOptions: {
+      // Keep references to these node dependencies, but don't try to bundle them
+      external: ['node:http', 'node:https'],
     },
   },
 

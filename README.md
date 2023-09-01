@@ -32,9 +32,6 @@ const apiClient = new ShlinkApiClient(new FetchHttpClient(), serverInfo);
 
 ### In node.js
 
-> **Warning**
-> At this time, this HTTP client is not yet implemented. Take this as the documentation of how it will work once implemented.
-
 ```ts
 import { ShlinkApiClient } from '@shlinkio/shlink-js-sdk';
 import { NodeHttpClient } from '@shlinkio/shlink-js-sdk/node';
