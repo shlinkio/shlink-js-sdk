@@ -17,12 +17,22 @@ export class NodeHttpClient implements HttpClient {
   }
 
   async emptyRequest(url: string, options?: RequestOptions): Promise<void> {
-    return this.makeRequest<void>(url, () => undefined, options);
+    return this.makeRequest<void>(
+      url,
+      (responseData, status) => {
+        if (status && status >= 400) {
+          return JSON.parse(Buffer.concat(responseData).toString());
+        }
+
+        return undefined;
+      },
+      options,
+    );
   }
 
   private async makeRequest<T>(
     url: string,
-    parseBody: (responseData: Uint8Array[]) => T,
+    parseBody: (responseData: Uint8Array[], statusCode?: number) => T,
     options?: RequestOptions,
   ): Promise<T> {
     const { promise, reject, resolve } = promiseWithResolvers<T>();
@@ -42,8 +52,10 @@ export class NodeHttpClient implements HttpClient {
         responseData.push(chunk);
       });
       resp.on('end', () => {
-        const body = parseBody(responseData);
-        if (resp.statusCode && resp.statusCode >= 400) {
+        const { statusCode } = resp;
+        const body = parseBody(responseData, statusCode);
+
+        if (statusCode && statusCode >= 400) {
           reject(body);
         } else {
           resolve(body);
@@ -52,7 +64,7 @@ export class NodeHttpClient implements HttpClient {
     });
 
     if (options?.body) {
-      request.write(JSON.stringify(options.body));
+      request.write(options.body);
     }
 
     request.on('error', reject);
