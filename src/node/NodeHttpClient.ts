@@ -5,13 +5,15 @@ import { promiseWithResolvers } from './promise-with-resolvers';
 
 type NodeHttp = typeof nodeHttp;
 
+const responseDataToJson = (responseData: Uint8Array[]) => JSON.parse(Buffer.concat(responseData).toString());
+
 export class NodeHttpClient implements HttpClient {
   constructor(private readonly http: NodeHttp = nodeHttp) {}
 
   async jsonRequest<T>(url: string, options?: RequestOptions): Promise<T> {
     return this.makeRequest<T>(
       url,
-      (responseData) => JSON.parse(Buffer.concat(responseData).toString()),
+      responseDataToJson,
       options,
     );
   }
@@ -19,13 +21,7 @@ export class NodeHttpClient implements HttpClient {
   async emptyRequest(url: string, options?: RequestOptions): Promise<void> {
     return this.makeRequest<void>(
       url,
-      (responseData, status) => {
-        if (status && status >= 400) {
-          return JSON.parse(Buffer.concat(responseData).toString());
-        }
-
-        return undefined;
-      },
+      (responseData, status) => (status && status >= 400 ? responseDataToJson(responseData) : undefined),
       options,
     );
   }
