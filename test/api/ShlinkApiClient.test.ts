@@ -115,6 +115,25 @@ describe('ShlinkApiClient', () => {
     });
   });
 
+  describe('deleteShortUrlVisits', () => {
+    it.each([
+      ['the_domain', '?domain=the_domain'],
+      [null, ''],
+      [undefined, ''],
+    ])('deletes visits with params', async (domain, expectedQuery) => {
+      const response = { deletedVisits: 10 };
+      jsonRequest.mockResolvedValue(response);
+
+      const actualVisits = await apiClient.deleteShortUrlVisits('abc123', domain);
+
+      expect(actualVisits).toEqual(response);
+      expect(jsonRequest).toHaveBeenCalledWith(
+        expect.stringContaining(`/short-urls/abc123/visits${expectedQuery}`),
+        expect.objectContaining({ method: 'DELETE' }),
+      );
+    });
+  });
+
   describe('getTagVisits', () => {
     it('properly returns tag visits', async () => {
       const expectedVisits = ['foo', 'bar'];
@@ -341,6 +360,21 @@ describe('ShlinkApiClient', () => {
 
       expect(jsonRequest).toHaveBeenCalled();
       expect(result).toEqual({ data: [] });
+    });
+  });
+
+  describe('deleteOrphanVisits', () => {
+    it('deletes visits with params', async () => {
+      const response = { deletedVisits: 10 };
+      jsonRequest.mockResolvedValue(response);
+
+      const actualVisits = await apiClient.deleteOrphanVisits();
+
+      expect(actualVisits).toEqual(response);
+      expect(jsonRequest).toHaveBeenCalledWith(
+        expect.stringContaining('/visits/orphan'),
+        expect.objectContaining({ method: 'DELETE' }),
+      );
     });
   });
 
