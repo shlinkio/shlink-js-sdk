@@ -148,6 +148,10 @@ export interface ShlinkVisits {
   pagination: ShlinkPaginator;
 }
 
+export type ShlinkDeleteVisitsResponse = {
+  deletedVisits: number;
+};
+
 export interface ShlinkVisitsOverview {
   /** Optional only before Shlink 3.5.0 */
   nonOrphanVisits?: ShlinkVisitsSummary;

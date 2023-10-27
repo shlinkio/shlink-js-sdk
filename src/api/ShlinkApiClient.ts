@@ -1,6 +1,7 @@
 import type {
   ShlinkApiClient as BaseShlinkApiClient,
   ShlinkCreateShortUrlData,
+  ShlinkDeleteVisitsResponse,
   ShlinkDomainRedirects,
   ShlinkDomainsResponse,
   ShlinkEditDomainRedirects,
@@ -73,6 +74,13 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
       .then(({ visits }) => visits);
   }
 
+  public async deleteShortUrlVisits(shortCode: string, domain?: string | null): Promise<ShlinkDeleteVisitsResponse> {
+    const query = domain ? { domain } : undefined;
+    return this.performRequest<ShlinkDeleteVisitsResponse>(
+      { method: 'DELETE', url: `/short-urls/${shortCode}/visits`, query },
+    );
+  }
+
   public async getTagVisits(tag: string, query?: Omit<ShlinkVisitsParams, 'domain'>): Promise<ShlinkVisits> {
     return this.performRequest<{ visits: ShlinkVisits }>({ url: `/tags/${tag}/visits`, query })
       .then(({ visits }) => visits);
@@ -85,6 +93,10 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
 
   public async getOrphanVisits(query?: Omit<ShlinkVisitsParams, 'domain'>): Promise<ShlinkVisits> {
     return this.performRequest<{ visits: ShlinkVisits }>({ url: '/visits/orphan', query }).then(({ visits }) => visits);
+  }
+
+  public async deleteOrphanVisits(): Promise<ShlinkDeleteVisitsResponse> {
+    return this.performRequest<ShlinkDeleteVisitsResponse>({ method: 'DELETE', url: '/visits/orphan' });
   }
 
   public async getNonOrphanVisits(query?: Omit<ShlinkVisitsParams, 'domain'>): Promise<ShlinkVisits> {

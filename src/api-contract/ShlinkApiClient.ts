@@ -1,5 +1,6 @@
 import type {
   ShlinkCreateShortUrlData,
+  ShlinkDeleteVisitsResponse,
   ShlinkDomainRedirects,
   ShlinkDomainsResponse,
   ShlinkEditDomainRedirects,
@@ -22,11 +23,15 @@ export type ShlinkApiClient = {
 
   getShortUrlVisits(shortCode: string, query?: ShlinkVisitsParams): Promise<ShlinkVisits>;
 
+  deleteShortUrlVisits(shortCode: string, domain?: string | null): Promise<ShlinkDeleteVisitsResponse>;
+
   getTagVisits(tag: string, query?: Omit<ShlinkVisitsParams, 'domain'>): Promise<ShlinkVisits>;
 
   getDomainVisits(domain: string, query?: Omit<ShlinkVisitsParams, 'domain'>): Promise<ShlinkVisits>;
 
   getOrphanVisits(query?: Omit<ShlinkVisitsParams, 'domain'>): Promise<ShlinkVisits>;
+
+  deleteOrphanVisits(): Promise<ShlinkDeleteVisitsResponse>;
 
   getNonOrphanVisits(query?: Omit<ShlinkVisitsParams, 'domain'>): Promise<ShlinkVisits>;
 
