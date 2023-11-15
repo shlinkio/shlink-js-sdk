@@ -8,3 +8,18 @@ updates:
       time: '09:00'
       timezone: 'Europe/Madrid'
     open-pull-requests-limit: 10
+    groups:
+      shlink:
+        patterns:
+          - '@shlinkio/*'
+      testing:
+        patterns:
+          - '@testing-library/*'
+      vite:
+        patterns:
+          - 'vite'
+          - 'vite-plugin-dts'
+      vitest:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
