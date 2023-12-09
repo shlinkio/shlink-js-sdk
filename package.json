@@ -47,12 +47,12 @@
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.1",
     "@total-typescript/shoehorn": "^0.1.1",
-    "@vitest/coverage-v8": "^0.34.6",
+    "@vitest/coverage-v8": "^1.0.2",
     "eslint": "^8.55.0",
     "jsdom": "^23.0.1",
     "typescript": "^5.3.2",
     "vite": "^5.0.4",
     "vite-plugin-dts": "^3.6.4",
-    "vitest": "^0.34.6"
+    "vitest": "^1.0.2"
   }
 }
