@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [0.2.1] - 2024-01-20
+### Added
+* Export different types for short URL visits params and other visits params.
+
+### Changed
+* Export API contract as TypeScript types instead of interfaces.
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* *Nothing*
+
+### Fixed
+* *Nothing*
+
+
 ## [0.2.0] - 2023-10-27
 ### Added
 * [#2](https://github.com/shlinkio/shlink-js-sdk/issues/2) Implement node.js `HttpClient`.
@@ -16,6 +33,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * *Nothing*
 
 ### Removed
+* *Nothing*
+
+### Fixed
 * *Nothing*
 
 

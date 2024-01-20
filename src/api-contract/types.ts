@@ -4,19 +4,19 @@ type Nullable<T> = {
   [P in keyof T]: T[P] | null
 };
 
-export interface ShlinkDeviceLongUrls {
+export type ShlinkDeviceLongUrls = {
   android?: OptionalString;
   ios?: OptionalString;
   desktop?: OptionalString;
-}
+};
 
-export interface ShlinkShortUrlMeta {
+export type ShlinkShortUrlMeta = {
   validSince?: string;
   validUntil?: string;
   maxVisits?: number;
-}
+};
 
-export interface ShlinkShortUrl {
+export type ShlinkShortUrl = {
   shortCode: string;
   shortUrl: string;
   longUrl: string;
@@ -33,9 +33,9 @@ export interface ShlinkShortUrl {
   title?: string | null;
   crawlable?: boolean;
   forwardQuery?: boolean;
-}
+};
 
-export interface ShlinkEditShortUrlData {
+export type ShlinkEditShortUrlData = {
   longUrl?: string;
   title?: string | null;
   tags?: string[];
@@ -48,9 +48,9 @@ export interface ShlinkEditShortUrlData {
 
   /** @deprecated To be removed in Shlink 4.0.0 */
   validateUrl?: boolean;
-}
+};
 
-export interface ShlinkCreateShortUrlData extends Omit<ShlinkEditShortUrlData, 'deviceLongUrls'> {
+export type ShlinkCreateShortUrlData = Omit<ShlinkEditShortUrlData, 'deviceLongUrls'> & {
   longUrl: string;
   customSlug?: string;
   shortCodeLength?: number;
@@ -61,24 +61,24 @@ export interface ShlinkCreateShortUrlData extends Omit<ShlinkEditShortUrlData, '
     ios?: string;
     desktop?: string;
   }
-}
+};
 
-export interface ShlinkShortUrlsResponse {
+export type ShlinkShortUrlsResponse = {
   data: ShlinkShortUrl[];
   pagination: ShlinkPaginator;
-}
+};
 
-export interface ShlinkMercureInfo {
+export type ShlinkMercureInfo = {
   token: string;
   mercureHubUrl: string;
-}
+};
 
-export interface ShlinkHealth {
+export type ShlinkHealth = {
   status: 'pass' | 'fail';
   version: string;
-}
+};
 
-export interface ShlinkTagsStats {
+export type ShlinkTagsStats = {
   tag: string;
   shortUrlsCount: number;
   /** Optional only before Shlink 3.5.0 */
@@ -86,38 +86,38 @@ export interface ShlinkTagsStats {
 
   /** @deprecated Use `visitsSummary.total` instead */
   visitsCount: number;
-}
+};
 
-export interface ShlinkTags {
+export type ShlinkTags = {
   tags: string[];
   stats: ShlinkTagsStats[];
-}
+};
 
-export interface ShlinkTagsResponse {
+export type ShlinkTagsResponse = {
   data: string[];
   /** @deprecated Present only when withStats=true is provided, which is deprecated */
   stats?: ShlinkTagsStats[];
-}
+};
 
-export interface ShlinkTagsStatsResponse {
+export type ShlinkTagsStatsResponse = {
   data: ShlinkTagsStats[];
-}
+};
 
-export interface ShlinkPaginator {
+export type ShlinkPaginator = {
   currentPage: number;
   pagesCount: number;
   totalItems: number;
-}
+};
 
-export interface ShlinkVisitsSummary {
+export type ShlinkVisitsSummary = {
   total: number;
   nonBots: number;
   bots: number;
-}
+};
 
 export type ShlinkOrphanVisitType = 'base_url' | 'invalid_short_url' | 'regular_404';
 
-export interface ShlinkVisitLocation {
+export type ShlinkVisitLocation = {
   countryCode: string | null;
   countryName: string | null;
   regionName: string | null;
@@ -126,33 +126,33 @@ export interface ShlinkVisitLocation {
   longitude: number | null;
   timezone: string | null;
   isEmpty: boolean;
-}
+};
 
-export interface ShlinkRegularVisit {
+export type ShlinkRegularVisit = {
   referer: string;
   date: string;
   userAgent: string;
   visitLocation: ShlinkVisitLocation | null;
   potentialBot: boolean;
-}
+};
 
-export interface ShlinkOrphanVisit extends ShlinkRegularVisit {
+export type ShlinkOrphanVisit = ShlinkRegularVisit & {
   visitedUrl: string;
   type: ShlinkOrphanVisitType;
-}
+};
 
 export type ShlinkVisit = ShlinkRegularVisit | ShlinkOrphanVisit;
 
-export interface ShlinkVisits {
+export type ShlinkVisits = {
   data: ShlinkVisit[];
   pagination: ShlinkPaginator;
-}
+};
 
 export type ShlinkDeleteVisitsResponse = {
   deletedVisits: number;
 };
 
-export interface ShlinkVisitsOverview {
+export type ShlinkVisitsOverview = {
   /** Optional only before Shlink 3.5.0 */
   nonOrphanVisits?: ShlinkVisitsSummary;
   /** Optional only before Shlink 3.5.0 */
@@ -162,37 +162,40 @@ export interface ShlinkVisitsOverview {
   visitsCount: number;
   /** @deprecated Use `orphanVisits.total` instead */
   orphanVisitsCount: number;
-}
+};
 
-export interface ShlinkVisitsParams {
-  domain?: string | null;
+export type ShlinkVisitsParams = {
   page?: number;
   itemsPerPage?: number;
   startDate?: string;
   endDate?: string;
   excludeBots?: boolean;
-}
+};
 
-export interface ShlinkDomainRedirects {
+export type ShlinkShortUrlVisitsParams = ShlinkVisitsParams & {
+  domain?: string | null;
+};
+
+export type ShlinkDomainRedirects = {
   baseUrlRedirect: string | null;
   regular404Redirect: string | null;
   invalidShortUrlRedirect: string | null;
-}
+};
 
-export interface ShlinkEditDomainRedirects extends Partial<ShlinkDomainRedirects> {
+export type ShlinkEditDomainRedirects = Partial<ShlinkDomainRedirects> & {
   domain: string;
-}
+};
 
-export interface ShlinkDomain {
+export type ShlinkDomain = {
   domain: string;
   isDefault: boolean;
   redirects: ShlinkDomainRedirects;
-}
+};
 
-export interface ShlinkDomainsResponse {
+export type ShlinkDomainsResponse = {
   data: ShlinkDomain[];
   defaultRedirects: ShlinkDomainRedirects;
-}
+};
 
 export type TagsFilteringMode = 'all' | 'any';
 
@@ -201,7 +204,7 @@ export type ShlinkShortUrlsOrder = {
   dir?: 'ASC' | 'DESC';
 };
 
-export interface ShlinkShortUrlsListParams {
+export type ShlinkShortUrlsListParams = {
   page?: string;
   itemsPerPage?: number;
   searchTerm?: string;
@@ -212,11 +215,11 @@ export interface ShlinkShortUrlsListParams {
   endDate?: string;
   excludeMaxVisitsReached?: boolean;
   excludePastValidUntil?: boolean;
-}
+};
 
-export interface ShlinkShortUrlsListNormalizedParams extends
-  Omit<ShlinkShortUrlsListParams, 'orderBy' | 'excludeMaxVisitsReached' | 'excludePastValidUntil'> {
-  orderBy?: string;
-  excludeMaxVisitsReached?: 'true';
-  excludePastValidUntil?: 'true';
-}
+export type ShlinkShortUrlsListNormalizedParams =
+  Omit<ShlinkShortUrlsListParams, 'orderBy' | 'excludeMaxVisitsReached' | 'excludePastValidUntil'> & {
+    orderBy?: string;
+    excludeMaxVisitsReached?: 'true';
+    excludePastValidUntil?: 'true';
+  };
