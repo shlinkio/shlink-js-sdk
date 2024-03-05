@@ -12,9 +12,8 @@ import type {
   ShlinkShortUrlsList,
   ShlinkShortUrlsListParams,
   ShlinkShortUrlVisitsParams,
-  ShlinkTags,
-  ShlinkTagsResponse,
-  ShlinkTagsStatsResponse,
+  ShlinkTagsList,
+  ShlinkTagsStatsList,
   ShlinkVisitsList,
   ShlinkVisitsOverview,
   ShlinkVisitsParams,
@@ -133,16 +132,15 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
 
   // Tags
 
-  public async listTags(): Promise<ShlinkTags> {
-    return this.performRequest<{ tags: ShlinkTagsResponse }>({ url: '/tags', query: { withStats: 'true' } })
-      .then(({ tags }) => tags)
-      .then(({ data, stats = [] }) => ({ tags: data, stats }));
+  public async listTags(): Promise<ShlinkTagsList> {
+    return this.performRequest<{ tags: ShlinkTagsList }>({
+      url: '/tags',
+      query: { withStats: 'true' }, // FIXME Remove this query param once Shlink 3.0 is no longer supported
+    }).then(({ tags }) => tags);
   }
 
-  public async tagsStats(): Promise<ShlinkTags> {
-    return this.performRequest<{ tags: ShlinkTagsStatsResponse }>({ url: '/tags/stats' })
-      .then(({ tags }) => tags)
-      .then(({ data }) => ({ tags: data.map(({ tag }) => tag), stats: data }));
+  public async tagsStats(): Promise<ShlinkTagsStatsList> {
+    return this.performRequest<{ tags: ShlinkTagsStatsList }>({ url: '/tags/stats' }).then(({ tags }) => tags);
   }
 
   public async deleteTags(tags: string[]): Promise<{ tags: string[] }> {

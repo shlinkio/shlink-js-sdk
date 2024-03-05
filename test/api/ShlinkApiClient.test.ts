@@ -217,7 +217,7 @@ describe('ShlinkApiClient', () => {
 
       const result = await apiClient.listTags();
 
-      expect(result).toEqual({ tags: expectedTags, stats: [] });
+      expect(result).toEqual({ data: expectedTags });
       expect(jsonRequest).toHaveBeenCalledWith(
         expect.stringContaining('/tags'),
         expect.objectContaining({ method: 'GET' }),
@@ -227,8 +227,8 @@ describe('ShlinkApiClient', () => {
 
   describe('tagsStats', () => {
     it('can use /tags/stats endpoint', async () => {
-      const expectedTags = ['foo', 'bar'];
-      const expectedStats = expectedTags.map((tag) => ({ tag, shortUrlsCount: 10, visitsCount: 10 }));
+      const tags = ['foo', 'bar'];
+      const expectedStats = tags.map((tag) => ({ tag, shortUrlsCount: 10, visitsCount: 10 }));
 
       jsonRequest.mockResolvedValue({
         tags: {
@@ -238,7 +238,7 @@ describe('ShlinkApiClient', () => {
 
       const result = await apiClient.tagsStats();
 
-      expect({ tags: expectedTags, stats: expectedStats }).toEqual(result);
+      expect({ data: expectedStats }).toEqual(result);
       expect(jsonRequest).toHaveBeenCalledWith(
         expect.stringContaining('/tags/stats'),
         expect.objectContaining({ method: 'GET' }),

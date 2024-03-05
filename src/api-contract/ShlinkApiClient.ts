@@ -11,7 +11,8 @@ import type {
   ShlinkShortUrlsList,
   ShlinkShortUrlsListParams,
   ShlinkShortUrlVisitsParams,
-  ShlinkTags,
+  ShlinkTagsList,
+  ShlinkTagsStatsList,
   ShlinkVisitsList,
   ShlinkVisitsOverview,
   ShlinkVisitsParams,
@@ -54,9 +55,9 @@ export type ShlinkApiClient = {
 
   // Tags
 
-  listTags(): Promise<ShlinkTags>;
+  listTags(): Promise<ShlinkTagsList>;
 
-  tagsStats(): Promise<ShlinkTags>;
+  tagsStats(): Promise<ShlinkTagsStatsList>;
 
   deleteTags(tags: string[]): Promise<{ tags: string[] }>;
 

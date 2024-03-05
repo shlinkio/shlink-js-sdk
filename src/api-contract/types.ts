@@ -95,23 +95,14 @@ export type ShlinkTagsStats = {
   visitsCount?: number;
 };
 
-/**
- * Consolidates ShlinkTagsResponse and ShlinkTagsStatsResponse. Stop doing that
- * @deprecated
- */
-export type ShlinkTags = {
-  tags: string[];
-  stats: ShlinkTagsStats[];
-};
-
-export type ShlinkTagsResponse = { // TODO ShlinkTagsList
+export type ShlinkTagsList = {
   data: string[];
 
-  /** @deprecated Never returned by Shlink 4.0.0, or previous versions when withStats=true is not provided */
+  /** @deprecated Never returned by Shlink 4.0.0 */
   stats?: ShlinkTagsStats[];
 };
 
-export type ShlinkTagsStatsResponse = { // TODO ShlinkTagsStatsList
+export type ShlinkTagsStatsList = {
   data: ShlinkTagsStats[];
 };
 
