@@ -1,8 +1,4 @@
-import type {
-  ShlinkShortUrlsListNormalizedParams,
-  ShlinkShortUrlsListParams,
-  ShlinkShortUrlsOrder,
-} from '../api-contract';
+import type { ShlinkShortUrlsListParams, ShlinkShortUrlsOrder } from '../api-contract';
 
 export type ApiVersion = 3;
 
@@ -11,6 +7,13 @@ export const buildShlinkBaseUrl = (url: string, version: ApiVersion) => `${url}/
 const shortUrlsOrderToString = (order: ShlinkShortUrlsOrder): string | undefined => (
   order.dir ? `${order.field}-${order.dir}` : undefined
 );
+
+type ShlinkShortUrlsListNormalizedParams =
+  Omit<ShlinkShortUrlsListParams, 'orderBy' | 'excludeMaxVisitsReached' | 'excludePastValidUntil'> & {
+    orderBy?: string;
+    excludeMaxVisitsReached?: 'true';
+    excludePastValidUntil?: 'true';
+  };
 
 export const normalizeListParams = (
   { orderBy = {}, excludeMaxVisitsReached, excludePastValidUntil, ...rest }: ShlinkShortUrlsListParams,

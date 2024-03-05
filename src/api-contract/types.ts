@@ -224,10 +224,3 @@ export type ShlinkShortUrlsListParams = {
   excludeMaxVisitsReached?: boolean;
   excludePastValidUntil?: boolean;
 };
-
-export type ShlinkShortUrlsListNormalizedParams =
-  Omit<ShlinkShortUrlsListParams, 'orderBy' | 'excludeMaxVisitsReached' | 'excludePastValidUntil'> & {
-    orderBy?: string;
-    excludeMaxVisitsReached?: 'true';
-    excludePastValidUntil?: 'true';
-  };
