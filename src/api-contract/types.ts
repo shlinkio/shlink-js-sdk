@@ -70,7 +70,7 @@ export type ShlinkCreateShortUrlData = Omit<ShlinkEditShortUrlData, 'deviceLongU
   }
 };
 
-export type ShlinkShortUrlsResponse = {
+export type ShlinkShortUrlsList = {
   data: ShlinkShortUrl[];
   pagination: ShlinkPaginator;
 };
@@ -104,14 +104,14 @@ export type ShlinkTags = {
   stats: ShlinkTagsStats[];
 };
 
-export type ShlinkTagsResponse = {
+export type ShlinkTagsResponse = { // TODO ShlinkTagsList
   data: string[];
 
   /** @deprecated Never returned by Shlink 4.0.0, or previous versions when withStats=true is not provided */
   stats?: ShlinkTagsStats[];
 };
 
-export type ShlinkTagsStatsResponse = {
+export type ShlinkTagsStatsResponse = { // TODO ShlinkTagsStatsList
   data: ShlinkTagsStats[];
 };
 
@@ -155,12 +155,12 @@ export type ShlinkOrphanVisit = ShlinkRegularVisit & {
 
 export type ShlinkVisit = ShlinkRegularVisit | ShlinkOrphanVisit;
 
-export type ShlinkVisits = {
+export type ShlinkVisitsList = {
   data: ShlinkVisit[];
   pagination: ShlinkPaginator;
 };
 
-export type ShlinkDeleteVisitsResponse = {
+export type ShlinkDeleteVisitsResult = {
   deletedVisits: number;
 };
 
@@ -204,7 +204,7 @@ export type ShlinkDomain = {
   redirects: ShlinkDomainRedirects;
 };
 
-export type ShlinkDomainsResponse = {
+export type ShlinkDomainsList = {
   data: ShlinkDomain[];
   defaultRedirects: ShlinkDomainRedirects;
 };

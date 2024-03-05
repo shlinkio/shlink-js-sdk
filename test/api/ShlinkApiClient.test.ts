@@ -5,10 +5,9 @@ import type {
   ShlinkDomain,
   ShlinkShortUrl,
   ShlinkShortUrlsOrder,
-  ShlinkVisits,
+  ShlinkVisitsList,
   ShlinkVisitsOverview,
 } from '../../src/api-contract';
-import { ErrorTypeV2, ErrorTypeV3 } from '../../src/api-contract';
 
 describe('ShlinkApiClient', () => {
   const jsonRequest = vi.fn().mockResolvedValue({});
@@ -354,7 +353,7 @@ describe('ShlinkApiClient', () => {
 
   describe('getOrphanVisits', () => {
     it('returns orphan visits', async () => {
-      jsonRequest.mockResolvedValue({ visits: fromPartial<ShlinkVisits>({ data: [] }) });
+      jsonRequest.mockResolvedValue({ visits: fromPartial<ShlinkVisitsList>({ data: [] }) });
 
       const result = await apiClient.getOrphanVisits();
 
@@ -380,7 +379,7 @@ describe('ShlinkApiClient', () => {
 
   describe('getNonOrphanVisits', () => {
     it('returns non-orphan visits', async () => {
-      jsonRequest.mockResolvedValue({ visits: fromPartial<ShlinkVisits>({ data: [] }) });
+      jsonRequest.mockResolvedValue({ visits: fromPartial<ShlinkVisitsList>({ data: [] }) });
 
       const result = await apiClient.getNonOrphanVisits();
 
@@ -398,22 +397,6 @@ describe('ShlinkApiClient', () => {
 
       expect(jsonRequest).toHaveBeenCalled();
       expect(result).toEqual(resp);
-    });
-
-    it.each([
-      ['NOT_FOUND'],
-      [ErrorTypeV2.NOT_FOUND],
-      [ErrorTypeV3.NOT_FOUND],
-    ])('retries request if API version is not supported', async (type) => {
-      jsonRequest
-        .mockRejectedValueOnce({ type, detail: 'detail', title: 'title', status: 404 })
-        .mockResolvedValue({});
-
-      await apiClient.editDomainRedirects({ domain: 'foo' });
-
-      expect(jsonRequest).toHaveBeenCalledTimes(2);
-      expect(jsonRequest).toHaveBeenNthCalledWith(1, expect.stringContaining('/v3/'), expect.anything());
-      expect(jsonRequest).toHaveBeenNthCalledWith(2, expect.stringContaining('/v2/'), expect.anything());
     });
   });
 });

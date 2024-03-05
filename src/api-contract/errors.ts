@@ -1,23 +1,7 @@
 /**
- * @deprecated Shlink 4.0.0 no longer uses these errors. Use ErrorTypeV3 instead
+ * Possible error types returned by Shlink's API
  */
-export enum ErrorTypeV2 {
-  INVALID_ARGUMENT = 'INVALID_ARGUMENT',
-  INVALID_SHORT_URL_DELETION = 'INVALID_SHORT_URL_DELETION',
-  DOMAIN_NOT_FOUND = 'DOMAIN_NOT_FOUND',
-  FORBIDDEN_OPERATION = 'FORBIDDEN_OPERATION',
-  INVALID_URL = 'INVALID_URL',
-  INVALID_SLUG = 'INVALID_SLUG',
-  INVALID_SHORTCODE = 'INVALID_SHORTCODE',
-  TAG_CONFLICT = 'TAG_CONFLICT',
-  TAG_NOT_FOUND = 'TAG_NOT_FOUND',
-  MERCURE_NOT_CONFIGURED = 'MERCURE_NOT_CONFIGURED',
-  INVALID_AUTHORIZATION = 'INVALID_AUTHORIZATION',
-  INVALID_API_KEY = 'INVALID_API_KEY',
-  NOT_FOUND = 'NOT_FOUND',
-}
-
-export enum ErrorTypeV3 {
+export enum ErrorType {
   INVALID_ARGUMENT = 'https://shlink.io/api/error/invalid-data',
   INVALID_SHORT_URL_DELETION = 'https://shlink.io/api/error/invalid-short-url-deletion',
   DOMAIN_NOT_FOUND = 'https://shlink.io/api/error/domain-not-found',
@@ -35,6 +19,9 @@ export enum ErrorTypeV3 {
   INVALID_URL = 'https://shlink.io/api/error/invalid-url',
 }
 
+/**
+ * Shape of the errors returned by Shlink
+ */
 export type ProblemDetailsError = {
   type: string;
   detail: string;
