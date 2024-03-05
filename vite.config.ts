@@ -31,6 +31,7 @@ export default defineConfig({
       include: [
         'src/**/*.ts',
         '!src/index.ts',
+        '!src/api-contract/*',
       ],
       reporter: ['text', 'text-summary', 'clover', 'html'],
 
