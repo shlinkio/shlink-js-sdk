@@ -3,6 +3,8 @@ import type { HttpClient } from '../../src';
 import { ShlinkApiClient } from '../../src';
 import type {
   ShlinkDomain,
+  ShlinkRedirectRulesList,
+  ShlinkSetRedirectRulesData,
   ShlinkShortUrl,
   ShlinkShortUrlsOrder,
   ShlinkVisitsList,
@@ -396,6 +398,53 @@ describe('ShlinkApiClient', () => {
       const result = await apiClient.editDomainRedirects({ domain: 'foo' });
 
       expect(jsonRequest).toHaveBeenCalled();
+      expect(result).toEqual(resp);
+    });
+  });
+
+  describe('getShortUrlRedirectRules', () => {
+    it.each([
+      ['the_domain', '?domain=the_domain'],
+      [null, ''],
+      [undefined, ''],
+    ])('returns the redirect rules', async (domain, expectedQuery) => {
+      const resp: ShlinkRedirectRulesList = {
+        defaultLongUrl: 'foo',
+        redirectRules: [],
+      };
+      jsonRequest.mockResolvedValue(resp);
+
+      const result = await apiClient.getShortUrlRedirectRules('foo', domain);
+
+      expect(jsonRequest).toHaveBeenCalledWith(
+        expect.stringContaining(`/short-urls/foo/redirect-rules${expectedQuery}`),
+        expect.objectContaining({ method: 'GET' }),
+      );
+      expect(result).toEqual(resp);
+    });
+  });
+
+  describe('setShortUrlRedirectRules', () => {
+    it.each([
+      ['the_domain', '?domain=the_domain'],
+      [null, ''],
+      [undefined, ''],
+    ])('sets redirect rules', async (domain, expectedQuery) => {
+      const resp: ShlinkRedirectRulesList = {
+        defaultLongUrl: 'foo',
+        redirectRules: [],
+      };
+      const data: ShlinkSetRedirectRulesData = {
+        redirectRules: [],
+      };
+      jsonRequest.mockResolvedValue(resp);
+
+      const result = await apiClient.setShortUrlRedirectRules('foo', domain, data);
+
+      expect(jsonRequest).toHaveBeenCalledWith(
+        expect.stringContaining(`/short-urls/foo/redirect-rules${expectedQuery}`),
+        expect.objectContaining({ method: 'POST', body: JSON.stringify(data) }),
+      );
       expect(result).toEqual(resp);
     });
   });
