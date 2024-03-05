@@ -7,6 +7,7 @@ import type {
   ShlinkEditShortUrlData,
   ShlinkHealth,
   ShlinkMercureInfo,
+  ShlinkOrphanVisitsParams,
   ShlinkShortUrl,
   ShlinkShortUrlsList,
   ShlinkShortUrlsListParams,
@@ -45,7 +46,7 @@ export type ShlinkApiClient = {
 
   getDomainVisits(domain: string, params?: ShlinkVisitsParams): Promise<ShlinkVisitsList>;
 
-  getOrphanVisits(params?: ShlinkVisitsParams): Promise<ShlinkVisitsList>;
+  getOrphanVisits(params?: ShlinkOrphanVisitsParams): Promise<ShlinkVisitsList>;
 
   getNonOrphanVisits(params?: ShlinkVisitsParams): Promise<ShlinkVisitsList>;
 

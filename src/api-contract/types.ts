@@ -179,6 +179,11 @@ export type ShlinkShortUrlVisitsParams = ShlinkVisitsParams & {
   domain?: string | null;
 };
 
+export type ShlinkOrphanVisitsParams = ShlinkVisitsParams & {
+  /** Ignored by Shlink older than v4.0.0 */
+  type?: ShlinkOrphanVisitType;
+};
+
 export type ShlinkDomainRedirects = {
   baseUrlRedirect: string | null;
   regular404Redirect: string | null;
