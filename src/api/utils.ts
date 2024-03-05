@@ -3,12 +3,8 @@ import type {
   ShlinkShortUrlsListParams,
   ShlinkShortUrlsOrder,
 } from '../api-contract';
-import {
-  ErrorTypeV2,
-  ErrorTypeV3,
-} from '../api-contract';
 
-export type ApiVersion = 2 | 3;
+export type ApiVersion = 3;
 
 export const buildShlinkBaseUrl = (url: string, version: ApiVersion) => `${url}/rest/v${version}`;
 
@@ -24,14 +20,6 @@ export const normalizeListParams = (
   excludePastValidUntil: excludePastValidUntil === true ? 'true' : undefined,
   orderBy: shortUrlsOrderToString(orderBy),
 });
-
-export const isRegularNotFound = (error: unknown): boolean => {
-  if (error === null || !(typeof error === 'object' && 'type' in error && 'status' in error)) {
-    return false;
-  }
-
-  return (error.type === ErrorTypeV2.NOT_FOUND || error.type === ErrorTypeV3.NOT_FOUND) && error.status === 404;
-};
 
 export const replaceAuthorityFromUri = (uri: string, newAuthority: string): string => {
   const [schema, rest] = uri.split('://');

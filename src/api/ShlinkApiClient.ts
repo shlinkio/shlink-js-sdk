@@ -1,29 +1,27 @@
 import type {
   ShlinkApiClient as BaseShlinkApiClient,
   ShlinkCreateShortUrlData,
-  ShlinkDeleteVisitsResponse,
+  ShlinkDeleteVisitsResult,
   ShlinkDomainRedirects,
-  ShlinkDomainsResponse,
+  ShlinkDomainsList,
   ShlinkEditDomainRedirects,
   ShlinkEditShortUrlData,
   ShlinkHealth,
   ShlinkMercureInfo,
   ShlinkShortUrl,
+  ShlinkShortUrlsList,
   ShlinkShortUrlsListParams,
-  ShlinkShortUrlsResponse, ShlinkShortUrlVisitsParams,
-  ShlinkTags,
-  ShlinkTagsResponse,
-  ShlinkTagsStatsResponse,
-  ShlinkVisits,
+  ShlinkShortUrlVisitsParams,
+  ShlinkTagsList,
+  ShlinkTagsStatsList,
+  ShlinkVisitsList,
   ShlinkVisitsOverview,
   ShlinkVisitsParams,
 } from '../api-contract';
 import type { HttpClient, RequestOptions } from './HttpClient';
-import type {
-  ApiVersion } from './utils';
+import type { ApiVersion } from './utils';
 import {
   buildShlinkBaseUrl,
-  isRegularNotFound,
   normalizeListParams,
   queryParamsToString,
   replaceAuthorityFromUri,
@@ -52,8 +50,10 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
     this.apiVersion = 3;
   }
 
-  public async listShortUrls(params: ShlinkShortUrlsListParams = {}): Promise<ShlinkShortUrlsResponse> {
-    return this.performRequest<{ shortUrls: ShlinkShortUrlsResponse }>(
+  // Short URLs
+
+  public async listShortUrls(params: ShlinkShortUrlsListParams = {}): Promise<ShlinkShortUrlsList> {
+    return this.performRequest<{ shortUrls: ShlinkShortUrlsList }>(
       { url: '/short-urls', query: normalizeListParams(params) },
     ).then(({ shortUrls }) => shortUrls);
   }
@@ -69,45 +69,6 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
     return this.performRequest<ShlinkShortUrl>({ url: '/short-urls', method: 'POST', body });
   }
 
-  public async getShortUrlVisits(shortCode: string, query?: ShlinkShortUrlVisitsParams): Promise<ShlinkVisits> {
-    return this.performRequest<{ visits: ShlinkVisits }>({ url: `/short-urls/${shortCode}/visits`, query })
-      .then(({ visits }) => visits);
-  }
-
-  public async deleteShortUrlVisits(shortCode: string, domain?: string | null): Promise<ShlinkDeleteVisitsResponse> {
-    const query = domain ? { domain } : undefined;
-    return this.performRequest<ShlinkDeleteVisitsResponse>(
-      { method: 'DELETE', url: `/short-urls/${shortCode}/visits`, query },
-    );
-  }
-
-  public async getTagVisits(tag: string, query?: ShlinkVisitsParams): Promise<ShlinkVisits> {
-    return this.performRequest<{ visits: ShlinkVisits }>({ url: `/tags/${tag}/visits`, query })
-      .then(({ visits }) => visits);
-  }
-
-  public async getDomainVisits(domain: string, query?: ShlinkVisitsParams): Promise<ShlinkVisits> {
-    return this.performRequest<{ visits: ShlinkVisits }>({ url: `/domains/${domain}/visits`, query })
-      .then(({ visits }) => visits);
-  }
-
-  public async getOrphanVisits(query?: ShlinkVisitsParams): Promise<ShlinkVisits> {
-    return this.performRequest<{ visits: ShlinkVisits }>({ url: '/visits/orphan', query }).then(({ visits }) => visits);
-  }
-
-  public async deleteOrphanVisits(): Promise<ShlinkDeleteVisitsResponse> {
-    return this.performRequest<ShlinkDeleteVisitsResponse>({ method: 'DELETE', url: '/visits/orphan' });
-  }
-
-  public async getNonOrphanVisits(query?: ShlinkVisitsParams): Promise<ShlinkVisits> {
-    return this.performRequest<{ visits: ShlinkVisits }>({ url: '/visits/non-orphan', query })
-      .then(({ visits }) => visits);
-  }
-
-  public async getVisitsOverview(): Promise<ShlinkVisitsOverview> {
-    return this.performRequest<{ visits: ShlinkVisitsOverview }>({ url: '/visits' }).then(({ visits }) => visits);
-  }
-
   public async getShortUrl(shortCode: string, domain?: string | null): Promise<ShlinkShortUrl> {
     return this.performRequest<ShlinkShortUrl>({ url: `/short-urls/${shortCode}`, query: { domain } });
   }
@@ -119,23 +80,67 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   public async updateShortUrl(
     shortCode: string,
     domain: string | null | undefined,
-    body: ShlinkEditShortUrlData,
+    data: ShlinkEditShortUrlData,
   ): Promise<ShlinkShortUrl> {
     return this.performRequest<ShlinkShortUrl>(
-      { url: `/short-urls/${shortCode}`, method: 'PATCH', query: { domain }, body },
+      { url: `/short-urls/${shortCode}`, method: 'PATCH', query: { domain }, body: data },
     );
   }
 
-  public async listTags(): Promise<ShlinkTags> {
-    return this.performRequest<{ tags: ShlinkTagsResponse }>({ url: '/tags', query: { withStats: 'true' } })
-      .then(({ tags }) => tags)
-      .then(({ data, stats = [] }) => ({ tags: data, stats }));
+  // Visits
+
+  public async getVisitsOverview(): Promise<ShlinkVisitsOverview> {
+    return this.performRequest<{ visits: ShlinkVisitsOverview }>({ url: '/visits' }).then(({ visits }) => visits);
   }
 
-  public async tagsStats(): Promise<ShlinkTags> {
-    return this.performRequest<{ tags: ShlinkTagsStatsResponse }>({ url: '/tags/stats' })
-      .then(({ tags }) => tags)
-      .then(({ data }) => ({ tags: data.map(({ tag }) => tag), stats: data }));
+  public async getShortUrlVisits(shortCode: string, params?: ShlinkShortUrlVisitsParams): Promise<ShlinkVisitsList> {
+    return this.performRequest<{ visits: ShlinkVisitsList }>({ url: `/short-urls/${shortCode}/visits`, query: params })
+      .then(({ visits }) => visits);
+  }
+
+  public async getTagVisits(tag: string, params?: ShlinkVisitsParams): Promise<ShlinkVisitsList> {
+    return this.performRequest<{ visits: ShlinkVisitsList }>({ url: `/tags/${tag}/visits`, query: params })
+      .then(({ visits }) => visits);
+  }
+
+  public async getDomainVisits(domain: string, params?: ShlinkVisitsParams): Promise<ShlinkVisitsList> {
+    return this.performRequest<{ visits: ShlinkVisitsList }>({ url: `/domains/${domain}/visits`, query: params })
+      .then(({ visits }) => visits);
+  }
+
+  public async getOrphanVisits(params?: ShlinkVisitsParams): Promise<ShlinkVisitsList> {
+    return this.performRequest<{ visits: ShlinkVisitsList }>({ url: '/visits/orphan', query: params }).then(
+      ({ visits }) => visits,
+    );
+  }
+
+  public async getNonOrphanVisits(params?: ShlinkVisitsParams): Promise<ShlinkVisitsList> {
+    return this.performRequest<{ visits: ShlinkVisitsList }>({ url: '/visits/non-orphan', query: params })
+      .then(({ visits }) => visits);
+  }
+
+  public async deleteShortUrlVisits(shortCode: string, domain?: string | null): Promise<ShlinkDeleteVisitsResult> {
+    const query = domain ? { domain } : undefined;
+    return this.performRequest<ShlinkDeleteVisitsResult>(
+      { method: 'DELETE', url: `/short-urls/${shortCode}/visits`, query },
+    );
+  }
+
+  public async deleteOrphanVisits(): Promise<ShlinkDeleteVisitsResult> {
+    return this.performRequest<ShlinkDeleteVisitsResult>({ method: 'DELETE', url: '/visits/orphan' });
+  }
+
+  // Tags
+
+  public async listTags(): Promise<ShlinkTagsList> {
+    return this.performRequest<{ tags: ShlinkTagsList }>({
+      url: '/tags',
+      query: { withStats: 'true' }, // FIXME Remove this query param once Shlink 3.0 is no longer supported
+    }).then(({ tags }) => tags);
+  }
+
+  public async tagsStats(): Promise<ShlinkTagsStatsList> {
+    return this.performRequest<{ tags: ShlinkTagsStatsList }>({ url: '/tags/stats' }).then(({ tags }) => tags);
   }
 
   public async deleteTags(tags: string[]): Promise<{ tags: string[] }> {
@@ -147,16 +152,10 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
       .then(() => ({ oldName, newName }));
   }
 
-  public async health(domain?: string): Promise<ShlinkHealth> {
-    return this.performRequest<ShlinkHealth>({ url: '/health', domain });
-  }
+  // Domains
 
-  public async mercureInfo(): Promise<ShlinkMercureInfo> {
-    return this.performRequest<ShlinkMercureInfo>({ url: '/mercure-info' });
-  }
-
-  public async listDomains(): Promise<ShlinkDomainsResponse> {
-    return this.performRequest<{ domains: ShlinkDomainsResponse }>({ url: '/domains' }).then(({ domains }) => domains);
+  public async listDomains(): Promise<ShlinkDomainsList> {
+    return this.performRequest<{ domains: ShlinkDomainsList }>({ url: '/domains' }).then(({ domains }) => domains);
   }
 
   public async editDomainRedirects(
@@ -167,16 +166,22 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
     );
   }
 
+  // Misc
+
+  public async health(domain?: string): Promise<ShlinkHealth> {
+    return this.performRequest<ShlinkHealth>({ url: '/health', domain });
+  }
+
+  public async mercureInfo(): Promise<ShlinkMercureInfo> {
+    return this.performRequest<ShlinkMercureInfo>({ url: '/mercure-info' });
+  }
+
   private async performRequest<T>(requestOptions: ShlinkRequestOptions): Promise<T> {
-    return this.httpClient.jsonRequest<T>(...this.toFetchParams(requestOptions)).catch(
-      this.handleFetchError(() => this.httpClient.jsonRequest<T>(...this.toFetchParams(requestOptions))),
-    );
+    return this.httpClient.jsonRequest<T>(...this.toFetchParams(requestOptions));
   }
 
   private async performEmptyRequest(requestOptions: ShlinkRequestOptions): Promise<void> {
-    return this.httpClient.emptyRequest(...this.toFetchParams(requestOptions)).catch(
-      this.handleFetchError(() => this.httpClient.emptyRequest(...this.toFetchParams(requestOptions))),
-    );
+    return this.httpClient.emptyRequest(...this.toFetchParams(requestOptions));
   }
 
   private toFetchParams({
@@ -195,18 +200,5 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
       body: body && JSON.stringify(body),
       headers: { 'X-Api-Key': this.serverInfo.apiKey },
     }];
-  }
-
-  private handleFetchError(retryFetch: Function) {
-    return (e: unknown) => {
-      if (!isRegularNotFound(e)) {
-        throw e;
-      }
-
-      // If we capture a not found error, let's assume this Shlink version does not support API v3, so we decrease to
-      // v2 and retry
-      this.apiVersion = 2;
-      return retryFetch();
-    };
   }
 }

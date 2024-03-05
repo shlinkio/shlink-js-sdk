@@ -1,42 +1,29 @@
 import type {
   ShlinkCreateShortUrlData,
-  ShlinkDeleteVisitsResponse,
+  ShlinkDeleteVisitsResult,
   ShlinkDomainRedirects,
-  ShlinkDomainsResponse,
+  ShlinkDomainsList,
   ShlinkEditDomainRedirects,
   ShlinkEditShortUrlData,
   ShlinkHealth,
   ShlinkMercureInfo,
   ShlinkShortUrl,
+  ShlinkShortUrlsList,
   ShlinkShortUrlsListParams,
-  ShlinkShortUrlsResponse,
   ShlinkShortUrlVisitsParams,
-  ShlinkTags,
-  ShlinkVisits,
+  ShlinkTagsList,
+  ShlinkTagsStatsList,
+  ShlinkVisitsList,
   ShlinkVisitsOverview,
   ShlinkVisitsParams,
 } from './types';
 
 export type ShlinkApiClient = {
-  listShortUrls(params?: ShlinkShortUrlsListParams): Promise<ShlinkShortUrlsResponse>;
+  // Short URLs
+
+  listShortUrls(params?: ShlinkShortUrlsListParams): Promise<ShlinkShortUrlsList>;
 
   createShortUrl(options: ShlinkCreateShortUrlData): Promise<ShlinkShortUrl>;
-
-  getShortUrlVisits(shortCode: string, query?: ShlinkShortUrlVisitsParams): Promise<ShlinkVisits>;
-
-  deleteShortUrlVisits(shortCode: string, domain?: string | null): Promise<ShlinkDeleteVisitsResponse>;
-
-  getTagVisits(tag: string, query?: ShlinkVisitsParams): Promise<ShlinkVisits>;
-
-  getDomainVisits(domain: string, query?: ShlinkVisitsParams): Promise<ShlinkVisits>;
-
-  getOrphanVisits(query?: ShlinkVisitsParams): Promise<ShlinkVisits>;
-
-  deleteOrphanVisits(): Promise<ShlinkDeleteVisitsResponse>;
-
-  getNonOrphanVisits(query?: ShlinkVisitsParams): Promise<ShlinkVisits>;
-
-  getVisitsOverview(): Promise<ShlinkVisitsOverview>;
 
   getShortUrl(shortCode: string, domain?: string | null): Promise<ShlinkShortUrl>;
 
@@ -45,22 +32,46 @@ export type ShlinkApiClient = {
   updateShortUrl(
     shortCode: string,
     domain: string | null | undefined,
-    body: ShlinkEditShortUrlData,
+    data: ShlinkEditShortUrlData,
   ): Promise<ShlinkShortUrl>;
 
-  listTags(): Promise<ShlinkTags>;
+  // Visits
 
-  tagsStats(): Promise<ShlinkTags>;
+  getVisitsOverview(): Promise<ShlinkVisitsOverview>;
+
+  getShortUrlVisits(shortCode: string, params?: ShlinkShortUrlVisitsParams): Promise<ShlinkVisitsList>;
+
+  getTagVisits(tag: string, params?: ShlinkVisitsParams): Promise<ShlinkVisitsList>;
+
+  getDomainVisits(domain: string, params?: ShlinkVisitsParams): Promise<ShlinkVisitsList>;
+
+  getOrphanVisits(params?: ShlinkVisitsParams): Promise<ShlinkVisitsList>;
+
+  getNonOrphanVisits(params?: ShlinkVisitsParams): Promise<ShlinkVisitsList>;
+
+  deleteShortUrlVisits(shortCode: string, domain?: string | null): Promise<ShlinkDeleteVisitsResult>;
+
+  deleteOrphanVisits(): Promise<ShlinkDeleteVisitsResult>;
+
+  // Tags
+
+  listTags(): Promise<ShlinkTagsList>;
+
+  tagsStats(): Promise<ShlinkTagsStatsList>;
 
   deleteTags(tags: string[]): Promise<{ tags: string[] }>;
 
   editTag(oldName: string, newName: string): Promise<{ oldName: string; newName: string }>;
 
+  // Domains
+
+  listDomains(): Promise<ShlinkDomainsList>;
+
+  editDomainRedirects(domainRedirects: ShlinkEditDomainRedirects): Promise<ShlinkDomainRedirects>;
+
+  // Misc
+
   health(authority?: string): Promise<ShlinkHealth>;
 
   mercureInfo(): Promise<ShlinkMercureInfo>;
-
-  listDomains(): Promise<ShlinkDomainsResponse>;
-
-  editDomainRedirects(domainRedirects: ShlinkEditDomainRedirects): Promise<ShlinkDomainRedirects>;
 };

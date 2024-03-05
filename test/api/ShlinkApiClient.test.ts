@@ -5,10 +5,9 @@ import type {
   ShlinkDomain,
   ShlinkShortUrl,
   ShlinkShortUrlsOrder,
-  ShlinkVisits,
+  ShlinkVisitsList,
   ShlinkVisitsOverview,
 } from '../../src/api-contract';
-import { ErrorTypeV2, ErrorTypeV3 } from '../../src/api-contract';
 
 describe('ShlinkApiClient', () => {
   const jsonRequest = vi.fn().mockResolvedValue({});
@@ -218,7 +217,7 @@ describe('ShlinkApiClient', () => {
 
       const result = await apiClient.listTags();
 
-      expect(result).toEqual({ tags: expectedTags, stats: [] });
+      expect(result).toEqual({ data: expectedTags });
       expect(jsonRequest).toHaveBeenCalledWith(
         expect.stringContaining('/tags'),
         expect.objectContaining({ method: 'GET' }),
@@ -228,8 +227,8 @@ describe('ShlinkApiClient', () => {
 
   describe('tagsStats', () => {
     it('can use /tags/stats endpoint', async () => {
-      const expectedTags = ['foo', 'bar'];
-      const expectedStats = expectedTags.map((tag) => ({ tag, shortUrlsCount: 10, visitsCount: 10 }));
+      const tags = ['foo', 'bar'];
+      const expectedStats = tags.map((tag) => ({ tag, shortUrlsCount: 10, visitsCount: 10 }));
 
       jsonRequest.mockResolvedValue({
         tags: {
@@ -239,7 +238,7 @@ describe('ShlinkApiClient', () => {
 
       const result = await apiClient.tagsStats();
 
-      expect({ tags: expectedTags, stats: expectedStats }).toEqual(result);
+      expect({ data: expectedStats }).toEqual(result);
       expect(jsonRequest).toHaveBeenCalledWith(
         expect.stringContaining('/tags/stats'),
         expect.objectContaining({ method: 'GET' }),
@@ -354,7 +353,7 @@ describe('ShlinkApiClient', () => {
 
   describe('getOrphanVisits', () => {
     it('returns orphan visits', async () => {
-      jsonRequest.mockResolvedValue({ visits: fromPartial<ShlinkVisits>({ data: [] }) });
+      jsonRequest.mockResolvedValue({ visits: fromPartial<ShlinkVisitsList>({ data: [] }) });
 
       const result = await apiClient.getOrphanVisits();
 
@@ -380,7 +379,7 @@ describe('ShlinkApiClient', () => {
 
   describe('getNonOrphanVisits', () => {
     it('returns non-orphan visits', async () => {
-      jsonRequest.mockResolvedValue({ visits: fromPartial<ShlinkVisits>({ data: [] }) });
+      jsonRequest.mockResolvedValue({ visits: fromPartial<ShlinkVisitsList>({ data: [] }) });
 
       const result = await apiClient.getNonOrphanVisits();
 
@@ -398,22 +397,6 @@ describe('ShlinkApiClient', () => {
 
       expect(jsonRequest).toHaveBeenCalled();
       expect(result).toEqual(resp);
-    });
-
-    it.each([
-      ['NOT_FOUND'],
-      [ErrorTypeV2.NOT_FOUND],
-      [ErrorTypeV3.NOT_FOUND],
-    ])('retries request if API version is not supported', async (type) => {
-      jsonRequest
-        .mockRejectedValueOnce({ type, detail: 'detail', title: 'title', status: 404 })
-        .mockResolvedValue({});
-
-      await apiClient.editDomainRedirects({ domain: 'foo' });
-
-      expect(jsonRequest).toHaveBeenCalledTimes(2);
-      expect(jsonRequest).toHaveBeenNthCalledWith(1, expect.stringContaining('/v3/'), expect.anything());
-      expect(jsonRequest).toHaveBeenNthCalledWith(2, expect.stringContaining('/v2/'), expect.anything());
     });
   });
 });
