@@ -8,6 +8,8 @@ import type {
   ShlinkHealth,
   ShlinkMercureInfo,
   ShlinkOrphanVisitsParams,
+  ShlinkRedirectRulesList,
+  ShlinkSetRedirectRulesData,
   ShlinkShortUrl,
   ShlinkShortUrlsList,
   ShlinkShortUrlsListParams,
@@ -35,6 +37,16 @@ export type ShlinkApiClient = {
     domain: string | null | undefined,
     data: ShlinkEditShortUrlData,
   ): Promise<ShlinkShortUrl>;
+
+  // Short URL redirect rules
+
+  getShortUrlRedirectRules(shortCode: string, domain?: string | null): Promise<ShlinkRedirectRulesList>;
+
+  setShortUrlRedirectRules(
+    shortCode: string,
+    domain: string | null | undefined,
+    data: ShlinkSetRedirectRulesData,
+  ): Promise<ShlinkRedirectRulesList>;
 
   // Visits
 
