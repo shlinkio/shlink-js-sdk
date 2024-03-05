@@ -4,6 +4,9 @@ type Nullable<T> = {
   [P in keyof T]: T[P] | null
 };
 
+/**
+ * @deprecated Shlink 4.0.0 no longer uses this.
+ */
 export type ShlinkDeviceLongUrls = {
   android?: OptionalString;
   ios?: OptionalString;
@@ -20,11 +23,7 @@ export type ShlinkShortUrl = {
   shortCode: string;
   shortUrl: string;
   longUrl: string;
-  /** Optional only before Shlink 3.5.0 */
-  deviceLongUrls?: Required<ShlinkDeviceLongUrls>,
   dateCreated: string;
-  /** @deprecated Use `visitsSummary.total` instead */
-  visitsCount: number;
   /** Optional only before Shlink 3.4.0 */
   visitsSummary?: ShlinkVisitsSummary;
   meta: Required<Nullable<ShlinkShortUrlMeta>>;
@@ -33,29 +32,37 @@ export type ShlinkShortUrl = {
   title?: string | null;
   crawlable?: boolean;
   forwardQuery?: boolean;
+
+  /** @deprecated Use `visitsSummary.total` instead */
+  visitsCount?: number;
+  /** @deprecated Removed in Shlink 4.0.0 */
+  deviceLongUrls?: Required<ShlinkDeviceLongUrls>,
 };
 
 export type ShlinkEditShortUrlData = {
   longUrl?: string;
   title?: string | null;
   tags?: string[];
-  deviceLongUrls?: ShlinkDeviceLongUrls;
   crawlable?: boolean;
   forwardQuery?: boolean;
   validSince?: string | null;
   validUntil?: string | null;
   maxVisits?: number | null;
 
-  /** @deprecated To be removed in Shlink 4.0.0 */
+  /** @deprecated Ignored by Shlink 4.0.0 */
   validateUrl?: boolean;
+  /** @deprecated Ignored by Shlink 4.0.0. Use redirect rules instead */
+  deviceLongUrls?: ShlinkDeviceLongUrls;
 };
 
-export type ShlinkCreateShortUrlData = Omit<ShlinkEditShortUrlData, 'deviceLongUrls'> & {
+export type ShlinkCreateShortUrlData = Omit<ShlinkEditShortUrlData, 'deviceLongUrls' | 'longUrl'> & {
   longUrl: string;
   customSlug?: string;
   shortCodeLength?: number;
   domain?: string;
   findIfExists?: boolean;
+
+  /** @deprecated Ignored by Shlink 4.0.0. Use redirect rules instead */
   deviceLongUrls?: {
     android?: string;
     ios?: string;
@@ -84,10 +91,14 @@ export type ShlinkTagsStats = {
   /** Optional only before Shlink 3.5.0 */
   visitsSummary?: ShlinkVisitsSummary;
 
-  /** @deprecated Use `visitsSummary.total` instead */
-  visitsCount: number;
+  /** @deprecated Not returned by Shlink 4.0.0. Use `visitsSummary.total` instead */
+  visitsCount?: number;
 };
 
+/**
+ * Consolidates ShlinkTagsResponse and ShlinkTagsStatsResponse. Stop doing that
+ * @deprecated
+ */
 export type ShlinkTags = {
   tags: string[];
   stats: ShlinkTagsStats[];
@@ -95,7 +106,8 @@ export type ShlinkTags = {
 
 export type ShlinkTagsResponse = {
   data: string[];
-  /** @deprecated Present only when withStats=true is provided, which is deprecated */
+
+  /** @deprecated Never returned by Shlink 4.0.0, or previous versions when withStats=true is not provided */
   stats?: ShlinkTagsStats[];
 };
 
@@ -159,9 +171,9 @@ export type ShlinkVisitsOverview = {
   orphanVisits?: ShlinkVisitsSummary;
 
   /** @deprecated Use `nonOrphanVisits.total` instead */
-  visitsCount: number;
+  visitsCount?: number;
   /** @deprecated Use `orphanVisits.total` instead */
-  orphanVisitsCount: number;
+  orphanVisitsCount?: number;
 };
 
 export type ShlinkVisitsParams = {
