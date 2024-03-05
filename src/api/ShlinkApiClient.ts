@@ -8,6 +8,7 @@ import type {
   ShlinkEditShortUrlData,
   ShlinkHealth,
   ShlinkMercureInfo,
+  ShlinkOrphanVisitsParams,
   ShlinkShortUrl,
   ShlinkShortUrlsList,
   ShlinkShortUrlsListParams,
@@ -94,29 +95,27 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   }
 
   public async getShortUrlVisits(shortCode: string, params?: ShlinkShortUrlVisitsParams): Promise<ShlinkVisitsList> {
-    return this.performRequest<{ visits: ShlinkVisitsList }>({ url: `/short-urls/${shortCode}/visits`, query: params })
-      .then(({ visits }) => visits);
+    return this.performVisitsRequest({ url: `/short-urls/${shortCode}/visits`, query: params });
   }
 
   public async getTagVisits(tag: string, params?: ShlinkVisitsParams): Promise<ShlinkVisitsList> {
-    return this.performRequest<{ visits: ShlinkVisitsList }>({ url: `/tags/${tag}/visits`, query: params })
-      .then(({ visits }) => visits);
+    return this.performVisitsRequest({ url: `/tags/${tag}/visits`, query: params });
   }
 
   public async getDomainVisits(domain: string, params?: ShlinkVisitsParams): Promise<ShlinkVisitsList> {
-    return this.performRequest<{ visits: ShlinkVisitsList }>({ url: `/domains/${domain}/visits`, query: params })
-      .then(({ visits }) => visits);
+    return this.performVisitsRequest({ url: `/domains/${domain}/visits`, query: params });
   }
 
-  public async getOrphanVisits(params?: ShlinkVisitsParams): Promise<ShlinkVisitsList> {
-    return this.performRequest<{ visits: ShlinkVisitsList }>({ url: '/visits/orphan', query: params }).then(
-      ({ visits }) => visits,
-    );
+  public async getOrphanVisits(params?: ShlinkOrphanVisitsParams): Promise<ShlinkVisitsList> {
+    return this.performVisitsRequest({ url: '/visits/orphan', query: params });
   }
 
   public async getNonOrphanVisits(params?: ShlinkVisitsParams): Promise<ShlinkVisitsList> {
-    return this.performRequest<{ visits: ShlinkVisitsList }>({ url: '/visits/non-orphan', query: params })
-      .then(({ visits }) => visits);
+    return this.performVisitsRequest({ url: '/visits/non-orphan', query: params });
+  }
+
+  private async performVisitsRequest(options: ShlinkRequestOptions): Promise<ShlinkVisitsList> {
+    return this.performRequest<{ visits: ShlinkVisitsList }>(options).then(({ visits }) => visits);
   }
 
   public async deleteShortUrlVisits(shortCode: string, domain?: string | null): Promise<ShlinkDeleteVisitsResult> {
