@@ -9,6 +9,8 @@ import type {
   ShlinkHealth,
   ShlinkMercureInfo,
   ShlinkOrphanVisitsParams,
+  ShlinkRedirectRulesList,
+  ShlinkSetRedirectRulesData,
   ShlinkShortUrl,
   ShlinkShortUrlsList,
   ShlinkShortUrlsListParams,
@@ -85,6 +87,24 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   ): Promise<ShlinkShortUrl> {
     return this.performRequest<ShlinkShortUrl>(
       { url: `/short-urls/${shortCode}`, method: 'PATCH', query: { domain }, body: data },
+    );
+  }
+
+  // Short URL redirect rules
+
+  public async getShortUrlRedirectRules(shortCode: string, domain?: string | null): Promise<ShlinkRedirectRulesList> {
+    return this.performRequest<ShlinkRedirectRulesList>(
+      { url: `/short-urls/${shortCode}/redirect-rules`, method: 'GET', query: { domain } },
+    );
+  }
+
+  public async setShortUrlRedirectRules(
+    shortCode: string,
+    domain: string | null | undefined,
+    data: ShlinkSetRedirectRulesData,
+  ): Promise<ShlinkRedirectRulesList> {
+    return this.performRequest<ShlinkRedirectRulesList>(
+      { url: `/short-urls/${shortCode}/redirect-rules`, method: 'POST', query: { domain }, body: data },
     );
   }
 

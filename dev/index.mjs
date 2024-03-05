@@ -13,7 +13,7 @@ import { NodeHttpClient } from '../dist/node.js';
       baseUrl,
       apiKey,
     });
-    console.log('Success:', await apiClient.deleteShortUrlVisits('nieRB'));
+    console.log('Success:', await apiClient.getShortUrlRedirectRules('sNvEk'));
   } catch (e) {
     console.error('Error:', e);
   }

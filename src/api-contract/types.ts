@@ -225,9 +225,28 @@ export type ShlinkShortUrlsListParams = {
   excludePastValidUntil?: boolean;
 };
 
-export type ShlinkShortUrlsListNormalizedParams =
-  Omit<ShlinkShortUrlsListParams, 'orderBy' | 'excludeMaxVisitsReached' | 'excludePastValidUntil'> & {
-    orderBy?: string;
-    excludeMaxVisitsReached?: 'true';
-    excludePastValidUntil?: 'true';
-  };
+export type ShlinkRedirectConditionType = 'device' | 'language' | 'query-param';
+
+export type ShlinkRedirectCondition = {
+  type: ShlinkRedirectConditionType;
+  matchKey: string | null;
+  matchValue: string;
+};
+
+export type ShlinkRedirectRuleData = {
+  longUrl: string;
+  conditions: ShlinkRedirectCondition[];
+};
+
+export type ShlinkRedirectRule = ShlinkRedirectRuleData & {
+  priority: number;
+};
+
+export type ShlinkRedirectRulesList = {
+  defaultLongUrl: string;
+  redirectRules: ShlinkRedirectRule[];
+};
+
+export type ShlinkSetRedirectRulesData = {
+  redirectRules: ShlinkRedirectRuleData[];
+};
