@@ -137,6 +137,8 @@ export type ShlinkRegularVisit = {
   userAgent: string;
   visitLocation: ShlinkVisitLocation | null;
   potentialBot: boolean;
+  /** Optional only before Shlink 4.1.0 */
+  visitedUrl?: string;
 };
 
 export type ShlinkOrphanVisit = ShlinkRegularVisit & {
