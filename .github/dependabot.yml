@@ -13,6 +13,7 @@ updates:
         patterns:
           - '@shlinkio/eslint-config-js-coding-standard'
           - '@typescript-eslint/*'
+          - 'eslint-plugin-*'
           - 'eslint'
       shlink:
         patterns:
