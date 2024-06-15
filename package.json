@@ -42,13 +42,13 @@
     "types": "tsc"
   },
   "devDependencies": {
-    "@shlinkio/eslint-config-js-coding-standard": "~2.5.0",
+    "@shlinkio/eslint-config-js-coding-standard": "~2.5.1",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
     "@total-typescript/shoehorn": "^0.1.2",
-    "@typescript-eslint/eslint-plugin": "^7.12.0",
-    "@typescript-eslint/parser": "^7.12.0",
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0",
     "@vitest/coverage-v8": "^1.6.0",
     "eslint": "^8.57.0",
     "eslint-plugin-jsx-a11y": "^6.8.0",
