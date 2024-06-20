@@ -1,9 +1,0 @@
-{
-  "root": true,
-  "extends": [
-    "@shlinkio/js-coding-standard"
-  ],
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  }
-}

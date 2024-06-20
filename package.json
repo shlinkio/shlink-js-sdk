@@ -38,17 +38,16 @@
     "build": "vite build",
     "test": "vitest run",
     "test:ci": "npm run test -- --coverage",
-    "lint": "eslint --ext .ts src test",
+    "lint": "eslint src test",
     "types": "tsc"
   },
   "devDependencies": {
-    "@shlinkio/eslint-config-js-coding-standard": "~2.5.1",
+    "@shlinkio/eslint-config-js-coding-standard": "~3.0.0",
+    "@stylistic/eslint-plugin": "^2.2.2",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
     "@total-typescript/shoehorn": "^0.1.2",
-    "@typescript-eslint/eslint-plugin": "^7.13.0",
-    "@typescript-eslint/parser": "^7.13.0",
     "@vitest/coverage-v8": "^1.6.0",
     "eslint": "^8.57.0",
     "eslint-plugin-jsx-a11y": "^6.8.0",
@@ -57,6 +56,7 @@
     "eslint-plugin-simple-import-sort": "^12.1.0",
     "jsdom": "^24.1.0",
     "typescript": "^5.4.5",
+    "typescript-eslint": "^7.13.1",
     "vite": "^5.3.1",
     "vite-plugin-dts": "^3.9.1",
     "vitest": "^1.2.2"
