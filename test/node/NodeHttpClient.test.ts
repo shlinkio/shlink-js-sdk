@@ -84,7 +84,7 @@ describe('NodeHttpClient', () => {
 
       await httpClient.emptyRequest(url);
 
-      assertAgent(request.mock.lastCall[1].agent);
+      assertAgent(request.mock.lastCall?.[1].agent);
     });
   });
 
