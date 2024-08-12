@@ -227,7 +227,7 @@ export type ShlinkShortUrlsListParams = {
   excludePastValidUntil?: boolean;
 };
 
-export type ShlinkRedirectConditionType = 'device' | 'language' | 'query-param';
+export type ShlinkRedirectConditionType = 'device' | 'language' | 'query-param' | 'ip-address';
 
 export type ShlinkRedirectCondition = {
   type: ShlinkRedirectConditionType;
