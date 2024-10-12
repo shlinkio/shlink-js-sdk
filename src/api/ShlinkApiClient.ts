@@ -64,7 +64,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   public async createShortUrl(options: ShlinkCreateShortUrlData): Promise<ShlinkShortUrl> {
     const body = Object.entries(options).reduce<any>((obj, [key, value]) => {
       if (value) {
-        // eslint-disable-next-line no-param-reassign
+
         obj[key] = value;
       }
       return obj;
