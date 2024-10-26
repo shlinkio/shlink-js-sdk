@@ -42,7 +42,7 @@
     "types": "tsc"
   },
   "devDependencies": {
-    "@shlinkio/eslint-config-js-coding-standard": "~3.2.0",
+    "@shlinkio/eslint-config-js-coding-standard": "~3.2.1",
     "@stylistic/eslint-plugin": "^2.9.0",
     "@testing-library/jest-dom": "^6.6.2",
     "@testing-library/react": "^16.0.1",
@@ -50,13 +50,13 @@
     "@total-typescript/shoehorn": "^0.1.2",
     "@vitest/coverage-v8": "^2.1.3",
     "eslint": "^9.13.0",
-    "eslint-plugin-jsx-a11y": "^6.10.0",
-    "eslint-plugin-react": "^7.37.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "jsdom": "^25.0.1",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.10.0",
+    "typescript-eslint": "^8.11.0",
     "vite": "^5.4.10",
     "vite-plugin-dts": "^4.3.0",
     "vitest": "^2.0.2"
