@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.3.0] - 2024-11-25
+### Added
+* Add support for `geolocation-country-code` and `geolocation-city-name` redirect condition types.
+* Add support for `domain` to filter short URL lists.
+* Update API contracts for Shlink 4.3.0
+
+### Changed
+* Update dependencies.
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* *Nothing*
+
+### Fixed
+* *Nothing*
+
+
 ## [1.2.0] - 2024-08-13
 ### Added
 * Add support for `ip-address` redirect condition type.

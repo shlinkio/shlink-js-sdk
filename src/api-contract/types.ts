@@ -24,7 +24,7 @@ export type ShlinkShortUrl = {
   shortUrl: string;
   longUrl: string;
   dateCreated: string;
-  /** Optional only before Shlink 3.4.0 */
+  /** Available since Shlink 3.4.0 */
   visitsSummary?: ShlinkVisitsSummary;
   meta: Required<Nullable<ShlinkShortUrlMeta>>;
   tags: string[];
@@ -32,8 +32,13 @@ export type ShlinkShortUrl = {
   title?: string | null;
   crawlable?: boolean;
   forwardQuery?: boolean;
+  /**
+   * Whether this short URL has any dynamic redirection rule attached to it.
+   * Available since Shlink 4.3.0
+   */
+  hasRedirectRules?: boolean;
 
-  /** @deprecated Use `visitsSummary.total` instead */
+  /** @deprecated Use `visitsSummary.total` instead. Removed in Shlink 4.0.0 */
   visitsCount?: number;
   /** @deprecated Removed in Shlink 4.0.0 */
   deviceLongUrls?: Required<ShlinkDeviceLongUrls>,
@@ -137,8 +142,14 @@ export type ShlinkRegularVisit = {
   userAgent: string;
   visitLocation: ShlinkVisitLocation | null;
   potentialBot: boolean;
-  /** Optional only before Shlink 4.1.0 */
+  /** Available since Shlink 4.1.0 */
   visitedUrl?: string;
+  /**
+   * The raw URL to which the visitor was redirected when this visit was tracked.
+   * It will be `null` if a redirect didn't happen for this visit.
+   * Available since Shlink 4.3.0
+   */
+  redirectUrl?: string | null;
 };
 
 export type ShlinkOrphanVisit = ShlinkRegularVisit & {
@@ -218,6 +229,11 @@ export type ShlinkShortUrlsListParams = {
   page?: string;
   itemsPerPage?: number;
   searchTerm?: string;
+  /**
+   * List short URLs only for this domain authority. Use DEFAULT keyword for the default domain.
+   * Available since Shlink 4.3.0
+   */
+  domain?: string | 'DEFAULT';
   tags?: string[];
   tagsMode?: TagsFilteringMode;
   orderBy?: ShlinkShortUrlsOrder;
@@ -227,7 +243,7 @@ export type ShlinkShortUrlsListParams = {
   excludePastValidUntil?: boolean;
 };
 
-export type ShlinkRedirectConditionType = 'device' | 'language' | 'query-param' | 'ip-address';
+export type ShlinkRedirectConditionType = 'device' | 'language' | 'query-param' | 'ip-address' | 'geolocation-country-code' | 'geolocation-city-name';
 
 export type ShlinkRedirectCondition = {
   type: ShlinkRedirectConditionType;
