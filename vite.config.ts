@@ -4,7 +4,6 @@ import { defineConfig } from 'vitest/config';
 
 // eslint-disable-next-line no-restricted-exports
 export default defineConfig({
-  // @ts-expect-error Error caused by vitest using vite 5 and the root using vite 6. To be fixed in vitest 3.
   plugins: [dts({ rollupTypes: true })],
 
   build: {
