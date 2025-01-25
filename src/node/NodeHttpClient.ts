@@ -40,6 +40,7 @@ export class NodeHttpClient implements HttpClient {
         ...options?.headers,
         'Content-Type': 'application/json',
       },
+      signal: options?.signal,
     }, (resp) => {
       resp.on('error', reject);
 

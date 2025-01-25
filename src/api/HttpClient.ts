@@ -2,6 +2,7 @@ export type RequestOptions = {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   body?: string;
   headers?: Record<string, string>;
+  signal?: AbortSignal;
 };
 
 export type HttpClient = {
