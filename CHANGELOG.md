@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+### Added
+* [#8](https://github.com/shlinkio/shlink-js-sdk/issues/8) Allow an `AbortSignal` to be provided as the last optional argument to all public `ShlinkApiClient` methods.
+
+  This will let consumers control if a request should be aborted, via `AbortController`.
+
+### Changed
+* Rearrange `exports` order, as suggested by vitest.
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* *Nothing*
+
+### Fixed
+* *Nothing*
+
+
 ## [1.3.0] - 2024-11-25
 ### Added
 * Add support for `geolocation-country-code` and `geolocation-city-name` redirect condition types.
