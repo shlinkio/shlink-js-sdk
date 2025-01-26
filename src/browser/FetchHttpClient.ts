@@ -24,22 +24,20 @@ export class FetchHttpClient implements HttpClient {
   constructor(private readonly fetch: Fetch = window.fetch.bind(window)) {}
 
   public async jsonRequest<T>(url: string, options?: RequestOptions): Promise<T> {
-    return this.fetch(url, withJsonContentType(options)).then(async (resp) => {
-      const json = await resp.json();
+    const resp = await this.fetch(url, withJsonContentType(options));
+    const json = await resp.json();
 
-      if (!resp.ok) {
-        throw json;
-      }
+    if (!resp.ok) {
+      throw json;
+    }
 
-      return json as T;
-    });
+    return json as T;
   }
 
   async emptyRequest(url: string, options?: RequestOptions): Promise<void> {
-    return this.fetch(url, withJsonContentType(options)).then(async (resp) => {
-      if (!resp.ok) {
-        throw await resp.json();
-      }
-    });
+    const resp = await this.fetch(url, withJsonContentType(options));
+    if (!resp.ok) {
+      throw await resp.json();
+    }
   }
 }
