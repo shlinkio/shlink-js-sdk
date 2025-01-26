@@ -237,6 +237,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
     query = {},
     body,
     domain,
+    signal,
   }: ShlinkRequestOptions): [string, RequestOptions] {
     const normalizedQuery = queryParamsToString(query);
     const stringifiedQuery = !normalizedQuery ? '' : `?${normalizedQuery}`;
@@ -246,6 +247,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
       method,
       body: body && JSON.stringify(body),
       headers: { 'X-Api-Key': this.serverInfo.apiKey },
+      signal,
     }];
   }
 }

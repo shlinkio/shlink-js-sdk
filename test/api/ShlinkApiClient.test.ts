@@ -69,8 +69,15 @@ describe('ShlinkApiClient', () => {
 
       expect(jsonRequest).toHaveBeenCalledWith(
         expect.stringContaining(`/short-urls${expectedQuery}`),
-        expect.anything(),
+        expect.objectContaining({ signal: undefined }),
       );
+    });
+
+    it('passes signal to HTTP client', async () => {
+      const { signal } = new AbortController();
+      await apiClient.listShortUrls({}, signal);
+
+      expect(jsonRequest).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ signal }));
     });
   });
 
