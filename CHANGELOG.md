@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [1.4.0] - 2025-01-26
 ### Added
 * [#8](https://github.com/shlinkio/shlink-js-sdk/issues/8) Allow an `AbortSignal` to be provided as the last optional argument to all public `ShlinkApiClient` methods.
 
