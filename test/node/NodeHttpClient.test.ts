@@ -77,7 +77,7 @@ describe('NodeHttpClient', () => {
     });
 
     it.each([
-      ['http://example.com', (agent: any) => expect(agent).not.toBeDefined()],
+      ['http://example.com', (agent: any) => expect(agent).toBeUndefined()],
       ['https://example.com', (agent: any) => expect(agent).toBeDefined()],
     ])('sets proper agent based on URL schema', async (url, assertAgent) => {
       const { request, httpClient } = createHttpClient({ invokeEnd: true });
@@ -85,6 +85,16 @@ describe('NodeHttpClient', () => {
       await httpClient.emptyRequest(url);
 
       assertAgent(request.mock.lastCall?.[1].agent);
+      expect(request.mock.lastCall?.[1].signal).toBeUndefined();
+    });
+
+    it('propagates signal to HTTP request if provided', async () => {
+      const { httpClient, request } = createHttpClient({ invokeEnd: true });
+      const { signal } = new AbortController();
+
+      await httpClient.emptyRequest('', { signal });
+
+      expect(request.mock.lastCall?.[1].signal).toEqual(signal);
     });
   });
 
