@@ -1,4 +1,5 @@
 import type {
+  Abortable,
   ShlinkCreateShortUrlData,
   ShlinkDeleteVisitsResult,
   ShlinkDomainRedirects,
@@ -22,84 +23,77 @@ import type {
   ShlinkVisitsParams,
 } from './types';
 
-// type Abortable = {
-//   signal?: AbortSignal;
-// };
-
 export type ShlinkApiClient = {
   // Short URLs
 
-  listShortUrls(params?: ShlinkShortUrlsListParams, signal?: AbortSignal): Promise<ShlinkShortUrlsList>;
+  listShortUrls(params?: ShlinkShortUrlsListParams & Abortable): Promise<ShlinkShortUrlsList>;
 
-  createShortUrl(options: ShlinkCreateShortUrlData, signal?: AbortSignal): Promise<ShlinkShortUrl>;
+  createShortUrl(data: ShlinkCreateShortUrlData, options?: Abortable): Promise<ShlinkShortUrl>;
 
-  getShortUrl(shortUrlId: ShlinkShortUrlIdentifier, signal?: AbortSignal): Promise<ShlinkShortUrl>;
+  getShortUrl(shortUrlId: ShlinkShortUrlIdentifier, options?: Abortable): Promise<ShlinkShortUrl>;
 
-  deleteShortUrl(shortUrlId: ShlinkShortUrlIdentifier, signal?: AbortSignal): Promise<void>;
+  deleteShortUrl(shortUrlId: ShlinkShortUrlIdentifier, options?: Abortable): Promise<void>;
 
   updateShortUrl(
     shortUrlId: ShlinkShortUrlIdentifier,
-    data: ShlinkEditShortUrlData,
-    signal?: AbortSignal,
+    data: ShlinkEditShortUrlData & Abortable,
   ): Promise<ShlinkShortUrl>;
 
   // Short URL redirect rules
 
   getShortUrlRedirectRules(
     shortUrlId: ShlinkShortUrlIdentifier,
-    signal?: AbortSignal,
+    options?: Abortable,
   ): Promise<ShlinkRedirectRulesList>;
 
   setShortUrlRedirectRules(
     shortUrlId: ShlinkShortUrlIdentifier,
-    data: ShlinkSetRedirectRulesData,
-    signal?: AbortSignal,
+    data: ShlinkSetRedirectRulesData & Abortable,
   ): Promise<ShlinkRedirectRulesList>;
 
   // Visits
 
-  getVisitsOverview(signal?: AbortSignal): Promise<ShlinkVisitsOverview>;
+  getVisitsOverview(options?: Abortable): Promise<ShlinkVisitsOverview>;
 
   getShortUrlVisits(
     shortUrlId: ShlinkShortUrlIdentifier,
-    params?: ShlinkVisitsParams,
-    signal?: AbortSignal,
+    params?: ShlinkVisitsParams & Abortable,
   ): Promise<ShlinkVisitsList>;
 
-  getTagVisits(tag: string, params?: ShlinkVisitsParams, signal?: AbortSignal): Promise<ShlinkVisitsList>;
+  getTagVisits(tag: string, params?: ShlinkVisitsParams & Abortable): Promise<ShlinkVisitsList>;
 
-  getDomainVisits(domain: string, params?: ShlinkVisitsParams, signal?: AbortSignal): Promise<ShlinkVisitsList>;
+  getDomainVisits(domain: string, params?: ShlinkVisitsParams & Abortable): Promise<ShlinkVisitsList>;
 
-  getOrphanVisits(params?: ShlinkOrphanVisitsParams, signal?: AbortSignal): Promise<ShlinkVisitsList>;
+  getOrphanVisits(params?: ShlinkOrphanVisitsParams & Abortable): Promise<ShlinkVisitsList>;
 
-  getNonOrphanVisits(params?: ShlinkVisitsParams, signal?: AbortSignal): Promise<ShlinkVisitsList>;
+  getNonOrphanVisits(params?: ShlinkVisitsParams & Abortable): Promise<ShlinkVisitsList>;
 
   deleteShortUrlVisits(
     shortUrlId: ShlinkShortUrlIdentifier,
-    signal?: AbortSignal,
+    options?: Abortable,
   ): Promise<ShlinkDeleteVisitsResult>;
 
-  deleteOrphanVisits(signal?: AbortSignal): Promise<ShlinkDeleteVisitsResult>;
+  deleteOrphanVisits(options?: Abortable): Promise<ShlinkDeleteVisitsResult>;
 
   // Tags
 
-  listTags(signal?: AbortSignal): Promise<ShlinkTagsList>;
+  listTags(options?: Abortable): Promise<ShlinkTagsList>;
 
-  tagsStats(signal?: AbortSignal): Promise<ShlinkTagsStatsList>;
+  tagsStats(options?: Abortable): Promise<ShlinkTagsStatsList>;
 
-  deleteTags(tags: string[], signal?: AbortSignal): Promise<{ tags: string[] }>;
+  deleteTags(tags: string[], options?: Abortable): Promise<{ tags: string[] }>;
 
-  editTag(renaming: ShlinkRenaming, signal?: AbortSignal): Promise<ShlinkRenaming>;
+  editTag(renaming: ShlinkRenaming, options?: Abortable): Promise<ShlinkRenaming>;
 
   // Domains
 
-  listDomains(signal?: AbortSignal): Promise<ShlinkDomainsList>;
+  listDomains(options?: Abortable): Promise<ShlinkDomainsList>;
 
-  editDomainRedirects(domainRedirects: ShlinkEditDomainRedirects, signal?: AbortSignal): Promise<ShlinkDomainRedirects>;
+  editDomainRedirects(domainRedirects: ShlinkEditDomainRedirects, options?: Abortable): Promise<ShlinkDomainRedirects>;
 
   // Misc
 
-  health(authority?: string, signal?: AbortSignal): Promise<ShlinkHealth>;
+  health(options?: { domain?: string } & Abortable): Promise<ShlinkHealth>;
 
-  mercureInfo(signal?: AbortSignal): Promise<ShlinkMercureInfo>;
+  mercureInfo(options?: Abortable): Promise<ShlinkMercureInfo>;
 };

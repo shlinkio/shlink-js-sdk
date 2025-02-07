@@ -313,7 +313,7 @@ describe('ShlinkApiClient', () => {
     });
 
     it('allows domain to be overwritten', async () => {
-      await apiClient.health('another-domain.test');
+      await apiClient.health({ domain: 'another-domain.test' });
       expect(jsonRequest).toHaveBeenCalledWith(
         expect.stringMatching(/^https:\/\/another-domain.test/),
         expect.anything(),
