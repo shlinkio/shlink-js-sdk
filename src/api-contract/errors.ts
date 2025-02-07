@@ -1,5 +1,6 @@
 /**
  * Possible error types returned by Shlink's API
+ * @todo convert in a regular frozen object
  */
 export enum ErrorType {
   INVALID_ARGUMENT = 'https://shlink.io/api/error/invalid-data',

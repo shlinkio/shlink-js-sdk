@@ -45,13 +45,13 @@ export type ServerInfo = {
 };
 
 export class ShlinkApiClient implements BaseShlinkApiClient {
-  private apiVersion: ApiVersion;
+  #apiVersion: ApiVersion;
 
   public constructor(
     private readonly httpClient: HttpClient,
     private readonly serverInfo: ServerInfo,
   ) {
-    this.apiVersion = 3;
+    this.#apiVersion = 3;
   }
 
   // Short URLs
@@ -68,7 +68,6 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   public async createShortUrl(options: ShlinkCreateShortUrlData, signal?: AbortSignal): Promise<ShlinkShortUrl> {
     const body = Object.entries(options).reduce<any>((obj, [key, value]) => {
       if (value) {
-
         obj[key] = value;
       }
       return obj;
@@ -243,7 +242,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
     const stringifiedQuery = !normalizedQuery ? '' : `?${normalizedQuery}`;
     const baseUrl = domain ? replaceAuthorityFromUri(this.serverInfo.baseUrl, domain) : this.serverInfo.baseUrl;
 
-    return [`${buildShlinkBaseUrl(baseUrl, this.apiVersion)}${url}${stringifiedQuery}`, {
+    return [`${buildShlinkBaseUrl(baseUrl, this.#apiVersion)}${url}${stringifiedQuery}`, {
       method,
       body: body && JSON.stringify(body),
       headers: { 'X-Api-Key': this.serverInfo.apiKey },

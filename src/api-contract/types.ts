@@ -93,8 +93,7 @@ export type ShlinkHealth = {
 export type ShlinkTagsStats = {
   tag: string;
   shortUrlsCount: number;
-  /** Optional only before Shlink 3.5.0 */
-  visitsSummary?: ShlinkVisitsSummary;
+  visitsSummary: ShlinkVisitsSummary;
 
   /** @deprecated Not returned by Shlink 4.0.0. Use `visitsSummary.total` instead */
   visitsCount?: number;
@@ -169,10 +168,8 @@ export type ShlinkDeleteVisitsResult = {
 };
 
 export type ShlinkVisitsOverview = {
-  /** Optional only before Shlink 3.5.0 */
-  nonOrphanVisits?: ShlinkVisitsSummary;
-  /** Optional only before Shlink 3.5.0 */
-  orphanVisits?: ShlinkVisitsSummary;
+  nonOrphanVisits: ShlinkVisitsSummary;
+  orphanVisits: ShlinkVisitsSummary;
 
   /** @deprecated Use `nonOrphanVisits.total` instead */
   visitsCount?: number;
