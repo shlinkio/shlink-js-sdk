@@ -10,11 +10,12 @@ import type {
   ShlinkMercureInfo,
   ShlinkOrphanVisitsParams,
   ShlinkRedirectRulesList,
+  ShlinkRenaming,
   ShlinkSetRedirectRulesData,
   ShlinkShortUrl,
+  ShlinkShortUrlIdentifier,
   ShlinkShortUrlsList,
   ShlinkShortUrlsListParams,
-  ShlinkShortUrlVisitsParams,
   ShlinkTagsList,
   ShlinkTagsStatsList,
   ShlinkVisitsList,
@@ -75,17 +76,19 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
     return this.performRequest<ShlinkShortUrl>({ url: '/short-urls', method: 'POST', body, signal });
   }
 
-  public async getShortUrl(shortCode: string, domain?: string | null, signal?: AbortSignal): Promise<ShlinkShortUrl> {
+  public async getShortUrl(
+    { shortCode, domain }: ShlinkShortUrlIdentifier,
+    signal?: AbortSignal,
+  ): Promise<ShlinkShortUrl> {
     return this.performRequest<ShlinkShortUrl>({ url: `/short-urls/${shortCode}`, query: { domain }, signal });
   }
 
-  public async deleteShortUrl(shortCode: string, domain?: string | null, signal?: AbortSignal): Promise<void> {
+  public async deleteShortUrl({ shortCode, domain }: ShlinkShortUrlIdentifier, signal?: AbortSignal): Promise<void> {
     return this.performEmptyRequest({ url: `/short-urls/${shortCode}`, method: 'DELETE', query: { domain }, signal });
   }
 
   public async updateShortUrl(
-    shortCode: string,
-    domain: string | null | undefined,
+    { shortCode, domain }: ShlinkShortUrlIdentifier,
     data: ShlinkEditShortUrlData,
     signal?: AbortSignal,
   ): Promise<ShlinkShortUrl> {
@@ -97,8 +100,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   // Short URL redirect rules
 
   public async getShortUrlRedirectRules(
-    shortCode: string,
-    domain?: string | null,
+    { shortCode, domain }: ShlinkShortUrlIdentifier,
     signal?: AbortSignal,
   ): Promise<ShlinkRedirectRulesList> {
     return this.performRequest<ShlinkRedirectRulesList>(
@@ -107,8 +109,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   }
 
   public async setShortUrlRedirectRules(
-    shortCode: string,
-    domain: string | null | undefined,
+    { shortCode, domain }: ShlinkShortUrlIdentifier,
     data: ShlinkSetRedirectRulesData,
     signal?: AbortSignal,
   ): Promise<ShlinkRedirectRulesList> {
@@ -126,11 +127,11 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   }
 
   public async getShortUrlVisits(
-    shortCode: string,
-    params?: ShlinkShortUrlVisitsParams,
+    { shortCode, domain }: ShlinkShortUrlIdentifier,
+    params?: ShlinkVisitsParams,
     signal?: AbortSignal,
   ): Promise<ShlinkVisitsList> {
-    return this.performVisitsRequest({ url: `/short-urls/${shortCode}/visits`, query: params, signal });
+    return this.performVisitsRequest({ url: `/short-urls/${shortCode}/visits`, query: { ...params, domain }, signal });
   }
 
   public async getTagVisits(tag: string, params?: ShlinkVisitsParams, signal?: AbortSignal): Promise<ShlinkVisitsList> {
@@ -158,8 +159,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   }
 
   public async deleteShortUrlVisits(
-    shortCode: string,
-    domain?: string | null,
+    { shortCode, domain }: ShlinkShortUrlIdentifier,
     signal?: AbortSignal,
   ): Promise<ShlinkDeleteVisitsResult> {
     const query = domain ? { domain } : undefined;
@@ -186,11 +186,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
     return this.performEmptyRequest({ url: '/tags', method: 'DELETE', query: { tags }, signal }).then(() => ({ tags }));
   }
 
-  public async editTag(
-    oldName: string,
-    newName: string,
-    signal?: AbortSignal,
-  ): Promise<{ oldName: string; newName: string }> {
+  public async editTag({ oldName, newName }: ShlinkRenaming, signal?: AbortSignal): Promise<ShlinkRenaming> {
     return this.performEmptyRequest({ url: '/tags', method: 'PUT', body: { oldName, newName }, signal })
       .then(() => ({ oldName, newName }));
   }
