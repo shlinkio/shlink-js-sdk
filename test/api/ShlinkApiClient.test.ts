@@ -113,7 +113,7 @@ describe('ShlinkApiClient', () => {
         },
       });
 
-      const actualVisits = await apiClient.getShortUrlVisits('abc123', {});
+      const actualVisits = await apiClient.getShortUrlVisits({ shortCode: 'abc123' });
 
       expect({ data: expectedVisits }).toEqual(actualVisits);
       expect(jsonRequest).toHaveBeenCalledWith(
@@ -132,7 +132,7 @@ describe('ShlinkApiClient', () => {
       const response = { deletedVisits: 10 };
       jsonRequest.mockResolvedValue(response);
 
-      const actualVisits = await apiClient.deleteShortUrlVisits('abc123', domain);
+      const actualVisits = await apiClient.deleteShortUrlVisits({ shortCode: 'abc123', domain });
 
       expect(actualVisits).toEqual(response);
       expect(jsonRequest).toHaveBeenCalledWith(
@@ -185,7 +185,7 @@ describe('ShlinkApiClient', () => {
       jsonRequest.mockResolvedValue(expectedShortUrl);
       const expectedQuery = domain ? `?domain=${domain}` : '';
 
-      const result = await apiClient.getShortUrl(shortCode, domain);
+      const result = await apiClient.getShortUrl({ shortCode, domain });
 
       expect(expectedShortUrl).toEqual(result);
       expect(jsonRequest).toHaveBeenCalledWith(
@@ -205,7 +205,7 @@ describe('ShlinkApiClient', () => {
       jsonRequest.mockResolvedValue(expectedResp);
       const expectedQuery = domain ? `?domain=${domain}` : '';
 
-      const result = await apiClient.updateShortUrl(shortCode, domain, meta);
+      const result = await apiClient.updateShortUrl({ shortCode, domain }, meta);
 
       expect(expectedResp).toEqual(result);
       expect(jsonRequest).toHaveBeenCalledWith(
@@ -273,7 +273,7 @@ describe('ShlinkApiClient', () => {
       const oldName = 'foo';
       const newName = 'bar';
 
-      await apiClient.editTag(oldName, newName);
+      await apiClient.editTag({ oldName, newName });
 
       expect(emptyRequest).toHaveBeenCalledWith(expect.stringContaining('/tags'), expect.objectContaining({
         method: 'PUT',
@@ -286,7 +286,7 @@ describe('ShlinkApiClient', () => {
     it.each(shortCodesWithDomainCombinations)('properly deletes provided short URL', async (shortCode, domain) => {
       const expectedQuery = domain ? `?domain=${domain}` : '';
 
-      await apiClient.deleteShortUrl(shortCode, domain);
+      await apiClient.deleteShortUrl({ shortCode, domain });
 
       expect(emptyRequest).toHaveBeenCalledWith(
         expect.stringContaining(`/short-urls/${shortCode}${expectedQuery}`),
@@ -421,7 +421,7 @@ describe('ShlinkApiClient', () => {
       };
       jsonRequest.mockResolvedValue(resp);
 
-      const result = await apiClient.getShortUrlRedirectRules('foo', domain);
+      const result = await apiClient.getShortUrlRedirectRules({ shortCode: 'foo', domain });
 
       expect(jsonRequest).toHaveBeenCalledWith(
         expect.stringContaining(`/short-urls/foo/redirect-rules${expectedQuery}`),
@@ -446,7 +446,7 @@ describe('ShlinkApiClient', () => {
       };
       jsonRequest.mockResolvedValue(resp);
 
-      const result = await apiClient.setShortUrlRedirectRules('foo', domain, data);
+      const result = await apiClient.setShortUrlRedirectRules({ shortCode: 'foo', domain }, data);
 
       expect(jsonRequest).toHaveBeenCalledWith(
         expect.stringContaining(`/short-urls/foo/redirect-rules${expectedQuery}`),

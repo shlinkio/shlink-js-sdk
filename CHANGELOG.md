@@ -6,16 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 ### Added
-* [#229](https://github.com/shlinkio/shlink-js-sdk/issues/229) Drop support for Shlink older than 3.5.0.
+* *Nothing*
 
 ### Changed
-* *Nothing*
+* [#228](https://github.com/shlinkio/shlink-js-sdk/issues/228) When any method of the `ShlinkApiClient` can receive both a `shortCode` and a `domain`, they are now together in a new `ShortUrlIdentifier` object.
 
 ### Deprecated
 * *Nothing*
 
 ### Removed
-* *Nothing*
+* [#229](https://github.com/shlinkio/shlink-js-sdk/issues/229) Drop support for Shlink older than 3.5.0.
 
 ### Fixed
 * *Nothing*

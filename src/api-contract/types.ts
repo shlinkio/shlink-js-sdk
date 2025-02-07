@@ -19,8 +19,12 @@ export type ShlinkShortUrlMeta = {
   maxVisits?: number;
 };
 
-export type ShlinkShortUrl = {
+export type ShlinkShortUrlIdentifier = {
   shortCode: string;
+  domain?: string | null;
+};
+
+export type ShlinkShortUrl = Required<ShlinkShortUrlIdentifier> & {
   shortUrl: string;
   longUrl: string;
   dateCreated: string;
@@ -28,7 +32,6 @@ export type ShlinkShortUrl = {
   visitsSummary?: ShlinkVisitsSummary;
   meta: Required<Nullable<ShlinkShortUrlMeta>>;
   tags: string[];
-  domain: string | null;
   title?: string | null;
   crawlable?: boolean;
   forwardQuery?: boolean;
@@ -185,10 +188,6 @@ export type ShlinkVisitsParams = {
   excludeBots?: boolean;
 };
 
-export type ShlinkShortUrlVisitsParams = ShlinkVisitsParams & {
-  domain?: string | null;
-};
-
 export type ShlinkOrphanVisitsParams = ShlinkVisitsParams & {
   /** Ignored by Shlink older than v4.0.0 */
   type?: ShlinkOrphanVisitType;
@@ -264,4 +263,9 @@ export type ShlinkRedirectRulesList = {
 
 export type ShlinkSetRedirectRulesData = {
   redirectRules: ShlinkRedirectRuleData[];
+};
+
+export type ShlinkRenaming = {
+  oldName: string;
+  newName: string;
 };

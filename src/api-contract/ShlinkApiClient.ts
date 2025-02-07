@@ -9,17 +9,22 @@ import type {
   ShlinkMercureInfo,
   ShlinkOrphanVisitsParams,
   ShlinkRedirectRulesList,
+  ShlinkRenaming,
   ShlinkSetRedirectRulesData,
   ShlinkShortUrl,
+  ShlinkShortUrlIdentifier,
   ShlinkShortUrlsList,
   ShlinkShortUrlsListParams,
-  ShlinkShortUrlVisitsParams,
   ShlinkTagsList,
   ShlinkTagsStatsList,
   ShlinkVisitsList,
   ShlinkVisitsOverview,
   ShlinkVisitsParams,
 } from './types';
+
+// type Abortable = {
+//   signal?: AbortSignal;
+// };
 
 export type ShlinkApiClient = {
   // Short URLs
@@ -28,13 +33,12 @@ export type ShlinkApiClient = {
 
   createShortUrl(options: ShlinkCreateShortUrlData, signal?: AbortSignal): Promise<ShlinkShortUrl>;
 
-  getShortUrl(shortCode: string, domain?: string | null, signal?: AbortSignal): Promise<ShlinkShortUrl>;
+  getShortUrl(shortUrlId: ShlinkShortUrlIdentifier, signal?: AbortSignal): Promise<ShlinkShortUrl>;
 
-  deleteShortUrl(shortCode: string, domain?: string | null, signal?: AbortSignal): Promise<void>;
+  deleteShortUrl(shortUrlId: ShlinkShortUrlIdentifier, signal?: AbortSignal): Promise<void>;
 
   updateShortUrl(
-    shortCode: string,
-    domain: string | null | undefined,
+    shortUrlId: ShlinkShortUrlIdentifier,
     data: ShlinkEditShortUrlData,
     signal?: AbortSignal,
   ): Promise<ShlinkShortUrl>;
@@ -42,14 +46,12 @@ export type ShlinkApiClient = {
   // Short URL redirect rules
 
   getShortUrlRedirectRules(
-    shortCode: string,
-    domain?: string | null,
+    shortUrlId: ShlinkShortUrlIdentifier,
     signal?: AbortSignal,
   ): Promise<ShlinkRedirectRulesList>;
 
   setShortUrlRedirectRules(
-    shortCode: string,
-    domain: string | null | undefined,
+    shortUrlId: ShlinkShortUrlIdentifier,
     data: ShlinkSetRedirectRulesData,
     signal?: AbortSignal,
   ): Promise<ShlinkRedirectRulesList>;
@@ -59,8 +61,8 @@ export type ShlinkApiClient = {
   getVisitsOverview(signal?: AbortSignal): Promise<ShlinkVisitsOverview>;
 
   getShortUrlVisits(
-    shortCode: string,
-    params?: ShlinkShortUrlVisitsParams,
+    shortUrlId: ShlinkShortUrlIdentifier,
+    params?: ShlinkVisitsParams,
     signal?: AbortSignal,
   ): Promise<ShlinkVisitsList>;
 
@@ -73,8 +75,7 @@ export type ShlinkApiClient = {
   getNonOrphanVisits(params?: ShlinkVisitsParams, signal?: AbortSignal): Promise<ShlinkVisitsList>;
 
   deleteShortUrlVisits(
-    shortCode: string,
-    domain?: string | null,
+    shortUrlId: ShlinkShortUrlIdentifier,
     signal?: AbortSignal,
   ): Promise<ShlinkDeleteVisitsResult>;
 
@@ -88,7 +89,7 @@ export type ShlinkApiClient = {
 
   deleteTags(tags: string[], signal?: AbortSignal): Promise<{ tags: string[] }>;
 
-  editTag(oldName: string, newName: string, signal?: AbortSignal): Promise<{ oldName: string; newName: string }>;
+  editTag(renaming: ShlinkRenaming, signal?: AbortSignal): Promise<ShlinkRenaming>;
 
   // Domains
 
