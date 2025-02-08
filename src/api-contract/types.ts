@@ -1,16 +1,18 @@
-type OptionalString = string | null | undefined;
-
-type Nullable<T> = {
+export type Nullable<T> = {
   [P in keyof T]: T[P] | null
+};
+
+export type Abortable = {
+  signal?: AbortSignal;
 };
 
 /**
  * @deprecated Shlink 4.0.0 no longer uses this.
  */
 export type ShlinkDeviceLongUrls = {
-  android?: OptionalString;
-  ios?: OptionalString;
-  desktop?: OptionalString;
+  android?: string | null;
+  ios?: string | null;
+  desktop?: string | null;
 };
 
 export type ShlinkShortUrlMeta = {
