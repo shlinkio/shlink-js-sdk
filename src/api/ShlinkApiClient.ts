@@ -48,11 +48,13 @@ export type ServerInfo = {
 
 export class ShlinkApiClient implements BaseShlinkApiClient {
   #apiVersion: ApiVersion;
+  readonly #httpClient: HttpClient;
+  readonly #serverInfo: ServerInfo;
 
-  public constructor(
-    private readonly httpClient: HttpClient,
-    private readonly serverInfo: ServerInfo,
-  ) {
+  public constructor(httpClient: HttpClient, serverInfo: ServerInfo)
+  {
+    this.#httpClient = httpClient;
+    this.#serverInfo = serverInfo;
     this.#apiVersion = 3;
   }
 
@@ -225,11 +227,11 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   }
 
   private async performRequest<T>(requestOptions: ShlinkRequestOptions): Promise<T> {
-    return this.httpClient.jsonRequest<T>(...this.toFetchParams(requestOptions));
+    return this.#httpClient.jsonRequest<T>(...this.toFetchParams(requestOptions));
   }
 
   private async performEmptyRequest(requestOptions: ShlinkRequestOptions): Promise<void> {
-    return this.httpClient.emptyRequest(...this.toFetchParams(requestOptions));
+    return this.#httpClient.emptyRequest(...this.toFetchParams(requestOptions));
   }
 
   private toFetchParams({
@@ -242,12 +244,12 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   }: ShlinkRequestOptions): [string, RequestOptions] {
     const normalizedQuery = queryParamsToString(query);
     const stringifiedQuery = !normalizedQuery ? '' : `?${normalizedQuery}`;
-    const baseUrl = domain ? replaceAuthorityFromUri(this.serverInfo.baseUrl, domain) : this.serverInfo.baseUrl;
+    const baseUrl = domain ? replaceAuthorityFromUri(this.#serverInfo.baseUrl, domain) : this.#serverInfo.baseUrl;
 
     return [`${buildShlinkBaseUrl(baseUrl, this.#apiVersion)}${url}${stringifiedQuery}`, {
       method,
       body: body && JSON.stringify(body),
-      headers: { 'X-Api-Key': this.serverInfo.apiKey },
+      headers: { 'X-Api-Key': this.#serverInfo.apiKey },
       signal,
     }];
   }

@@ -21,10 +21,14 @@ const withJsonContentType = (options?: RequestOptions): RequestInit | undefined 
 };
 
 export class FetchHttpClient implements HttpClient {
-  constructor(private readonly fetch: Fetch = window.fetch.bind(window)) {}
+  readonly #fetch: Fetch;
+
+  constructor(fetch: Fetch = window.fetch.bind(window)) {
+    this.#fetch = fetch;
+  }
 
   public async jsonRequest<T>(url: string, options?: RequestOptions): Promise<T> {
-    const resp = await this.fetch(url, withJsonContentType(options));
+    const resp = await this.#fetch(url, withJsonContentType(options));
     const json = await resp.json();
 
     if (!resp.ok) {
@@ -35,7 +39,7 @@ export class FetchHttpClient implements HttpClient {
   }
 
   async emptyRequest(url: string, options?: RequestOptions): Promise<void> {
-    const resp = await this.fetch(url, withJsonContentType(options));
+    const resp = await this.#fetch(url, withJsonContentType(options));
     if (!resp.ok) {
       throw await resp.json();
     }
