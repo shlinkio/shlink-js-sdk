@@ -67,8 +67,8 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
     ).then(({ shortUrls }) => shortUrls);
   }
 
-  public async createShortUrl({ signal, ...options }: ShlinkCreateShortUrlData & Abortable): Promise<ShlinkShortUrl> {
-    const body = Object.entries(options).reduce<any>((obj, [key, value]) => {
+  public async createShortUrl({ signal, ...data }: ShlinkCreateShortUrlData & Abortable): Promise<ShlinkShortUrl> {
+    const body = Object.entries(data).reduce<any>((obj, [key, value]) => {
       if (value) {
         obj[key] = value;
       }
