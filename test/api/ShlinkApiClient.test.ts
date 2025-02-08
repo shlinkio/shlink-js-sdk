@@ -75,7 +75,7 @@ describe('ShlinkApiClient', () => {
 
     it('passes signal to HTTP client', async () => {
       const { signal } = new AbortController();
-      await apiClient.listShortUrls({}, signal);
+      await apiClient.listShortUrls({ signal });
 
       expect(jsonRequest).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ signal }));
     });

@@ -28,7 +28,7 @@ export type ShlinkApiClient = {
 
   listShortUrls(params?: ShlinkShortUrlsListParams & Abortable): Promise<ShlinkShortUrlsList>;
 
-  createShortUrl(data: ShlinkCreateShortUrlData, options?: Abortable): Promise<ShlinkShortUrl>;
+  createShortUrl(data: ShlinkCreateShortUrlData & Abortable): Promise<ShlinkShortUrl>;
 
   getShortUrl(shortUrlId: ShlinkShortUrlIdentifier, options?: Abortable): Promise<ShlinkShortUrl>;
 

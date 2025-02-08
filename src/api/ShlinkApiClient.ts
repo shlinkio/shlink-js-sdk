@@ -59,8 +59,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   // Short URLs
 
   public async listShortUrls(
-    params: ShlinkShortUrlsListParams = {},
-    signal?: AbortSignal,
+    { signal, ...params }: ShlinkShortUrlsListParams & Abortable = {},
   ): Promise<ShlinkShortUrlsList> {
     return this.performRequest<{ shortUrls: ShlinkShortUrlsList }>(
       { url: '/short-urls', query: normalizeListParams(params), signal },
