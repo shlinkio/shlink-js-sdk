@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 ### Added
-* *Nothing*
+* [#4](https://github.com/shlinkio/shlink-js-sdk/issues/4) Add an integration test suite that tests the SDK against all supported versions
 
 ### Changed
 * [#228](https://github.com/shlinkio/shlink-js-sdk/issues/228) When any method of the `ShlinkApiClient` can receive both a `shortCode` and a `domain`, they are now together in a new `ShortUrlIdentifier` object.
