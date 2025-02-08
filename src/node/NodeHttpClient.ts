@@ -8,7 +8,11 @@ type NodeHttp = typeof nodeHttp;
 const responseDataToJson = (responseData: Uint8Array[]) => JSON.parse(Buffer.concat(responseData).toString());
 
 export class NodeHttpClient implements HttpClient {
-  constructor(private readonly http: NodeHttp = nodeHttp) {}
+  readonly #http: NodeHttp;
+
+  constructor(http: NodeHttp = nodeHttp) {
+    this.#http = http;
+  }
 
   async jsonRequest<T>(url: string, options?: RequestOptions): Promise<T> {
     return this.makeRequest<T>(
@@ -33,7 +37,7 @@ export class NodeHttpClient implements HttpClient {
   ): Promise<T> {
     const { promise, reject, resolve } = promiseWithResolvers<T>();
 
-    const request = this.http.request(url, {
+    const request = this.#http.request(url, {
       agent: url.startsWith('https') ? new HttpsAgent() : undefined,
       method: options?.method,
       headers: {
