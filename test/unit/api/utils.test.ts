@@ -1,4 +1,4 @@
-import { queryParamsToString, replaceAuthorityFromUri } from '../../src/api/utils';
+import { queryParamsToString, replaceAuthorityFromUri } from '../../../src/api/utils';
 
 describe('replaceAuthorityFromUri', () => {
   it('throws when it is not possible to infer authority from provided URI', () => {

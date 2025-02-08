@@ -27,6 +27,7 @@ export default defineConfig({
     globals: true,
     allowOnly: true,
     setupFiles: './test/setup.ts',
+    include: ['test/unit/**/*.test.ts'],
     coverage: {
       provider: 'v8',
       reportsDirectory: './coverage',

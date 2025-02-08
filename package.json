@@ -32,6 +32,7 @@
   "scripts": {
     "build": "vite build",
     "test": "vitest run",
+    "test:integration": "test/run-integration-tests.sh",
     "test:ci": "npm run test -- --coverage",
     "lint": "eslint src test",
     "types": "tsc"
