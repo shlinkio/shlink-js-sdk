@@ -14,6 +14,7 @@ export default defineConfig({
         browser: resolve(__dirname, 'src/browser/index.ts'),
         node: resolve(__dirname, 'src/node/index.ts'),
       },
+      formats: ['es'], // Generate ES module only
     },
     rollupOptions: {
       // Keep references to these node dependencies, but don't try to bundle them

@@ -5,28 +5,23 @@
   "author": "Alejandro Celaya <alejandro@alejandrocelaya.com>",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.umd.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
       "import": "./dist/index.js"
     },
     "./api-contract": {
       "types": "./dist/api-contract.d.ts",
-      "require": "./dist/api-contract.cjs",
       "import": "./dist/api-contract.js"
     },
     "./browser": {
       "types": "./dist/browser.d.ts",
-      "require": "./dist/browser.cjs",
       "import": "./dist/browser.js"
     },
     "./node": {
       "types": "./dist/node.d.ts",
-      "require": "./dist/node.cjs",
       "import": "./dist/node.js"
     },
     "./package.json": "./package.json"
