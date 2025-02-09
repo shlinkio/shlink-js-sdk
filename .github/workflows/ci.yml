@@ -10,3 +10,18 @@ jobs:
   ci:
     uses: shlinkio/github-actions/.github/workflows/js-lib-ci.yml@main
     secrets: inherit
+
+  integration-tests:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        node-version: ['20.x', '22.x', '23.x']
+        shlink-version: ['4.4', '4.3', '4.2', '4.1', '4.0', '3.7', '3.6', '3.5.4']
+        shlink-api-version: ['3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: SHLINK_VERSION=${{ matrix.shlink-version }} SHLINK_API_VERSION=${{ matrix.shlink-api-version }} npm run test:integration

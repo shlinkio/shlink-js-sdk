@@ -1,7 +1,7 @@
 // @vitest-environment node
 
 import { fromPartial } from '@total-typescript/shoehorn';
-import { NodeHttpClient } from '../../src/node';
+import { NodeHttpClient } from '../../../src/node';
 
 type ResponseBehavior = {
   invokeEnd?: boolean;

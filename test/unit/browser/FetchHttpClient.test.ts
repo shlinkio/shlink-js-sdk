@@ -1,4 +1,4 @@
-import { FetchHttpClient } from '../../src/browser';
+import { FetchHttpClient } from '../../../src/browser';
 
 describe('FetchHttpClient', () => {
   const fetch = vi.fn();

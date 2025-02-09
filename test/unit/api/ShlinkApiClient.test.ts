@@ -1,6 +1,6 @@
 import { fromPartial } from '@total-typescript/shoehorn';
-import type { HttpClient } from '../../src';
-import { ShlinkApiClient } from '../../src';
+import type { HttpClient } from '../../../src';
+import { ShlinkApiClient } from '../../../src';
 import type {
   ShlinkDomain,
   ShlinkRedirectRulesList,
@@ -9,7 +9,7 @@ import type {
   ShlinkShortUrlsOrder,
   ShlinkVisitsList,
   ShlinkVisitsOverview,
-} from '../../src/api-contract';
+} from '../../../src/api-contract';
 
 describe('ShlinkApiClient', () => {
   const jsonRequest = vi.fn().mockResolvedValue({});
