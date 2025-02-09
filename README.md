@@ -6,7 +6,7 @@
 [![GitHub license](https://img.shields.io/github/license/shlinkio/shlink-js-sdk.svg?style=flat-square)](https://github.com/shlinkio/shlink-js-sdk/blob/main/LICENSE)
 [![Paypal Donate](https://img.shields.io/badge/Donate-paypal-blue.svg?style=flat-square&logo=paypal&colorA=cccccc)](https://slnk.to/donate)
 
-A javascript Shlink's REST API client for the browser and node.js.
+A Shlink's REST API client for JS runtimes: the browser, [Node.js](https://nodejs.org/), [Deno](https://deno.com/) and [Bun](https://bun.sh/).
 
 ## Installation
 
@@ -16,21 +16,24 @@ A javascript Shlink's REST API client for the browser and node.js.
 
 This library provides a main `ShlinkApiClient` class, which receives some config and allows to consume all endpoints exposed by Shlink API.
 
-In order to perform HTTP requests, it expects an implementation of `HttpClient` to be provided. This library includes one meant to be used in the browser, which internally uses [`window.fetch`](https://developer.mozilla.org/es/docs/Web/API/fetch), and one to be used in node.js, which internally uses [`http.request`](https://nodejs.org/api/http.html#httprequestoptions-callback).
+In order to perform HTTP requests, it expects an implementation of `HttpClient` to be provided. This library includes two implementations
+
+* `FetchHttpClient`: uses [`globalThis.fetch`](https://developer.mozilla.org/es/docs/Web/API/fetch), and can be used in any env where it is available (the browser, Node.js, Deno and Bun).
+* `NodeHttpClient`: internally uses [`http.request`](https://nodejs.org/api/http.html#httprequestoptions-callback), so it is only usable with Node.js, where it is slightly more performant than `FetchHttpClient`.
 
 If you have some special needs, you can provide your own implementation, or decorate one of those two.
 
-### In the browser
+### Fetch
 
 ```ts
 import { ShlinkApiClient } from '@shlinkio/shlink-js-sdk';
-import { FetchHttpClient } from '@shlinkio/shlink-js-sdk/browser';
+import { FetchHttpClient } from '@shlinkio/shlink-js-sdk/fetch';
 
 const serverInfo = { baseUrl: 'https://s.test', apiKey: '12345' };
 const apiClient = new ShlinkApiClient(new FetchHttpClient(), serverInfo);
 ```
 
-### In node.js
+### Node
 
 ```ts
 import { ShlinkApiClient } from '@shlinkio/shlink-js-sdk';

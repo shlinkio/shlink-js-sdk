@@ -11,7 +11,7 @@ export default defineConfig({
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
         'api-contract': resolve(__dirname, 'src/api-contract/index.ts'),
-        browser: resolve(__dirname, 'src/browser/index.ts'),
+        fetch: resolve(__dirname, 'src/fetch/index.ts'),
         node: resolve(__dirname, 'src/node/index.ts'),
       },
       formats: ['es'], // Generate ES module only

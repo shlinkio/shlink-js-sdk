@@ -1,6 +1,6 @@
 {
   "name": "@shlinkio/shlink-js-sdk",
-  "description": "A javascript Shlink's REST API client for the browser and node.js",
+  "description": "A Shlink's REST API client for JS runtimes: the browser, Node.js, Deno and Bun",
   "homepage": "https://shlink.io",
   "author": "Alejandro Celaya <alejandro@alejandrocelaya.com>",
   "license": "MIT",
@@ -16,9 +16,9 @@
       "types": "./dist/api-contract.d.ts",
       "import": "./dist/api-contract.js"
     },
-    "./browser": {
-      "types": "./dist/browser.d.ts",
-      "import": "./dist/browser.js"
+    "./fetch": {
+      "types": "./dist/fetch.d.ts",
+      "import": "./dist/fetch.js"
     },
     "./node": {
       "types": "./dist/node.d.ts",

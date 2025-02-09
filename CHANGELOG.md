@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * [#4](https://github.com/shlinkio/shlink-js-sdk/issues/4) Add an integration test suite that tests the SDK against all supported versions
 
 ### Changed
+* [#23](https://github.com/shlinkio/shlink-js-sdk/issues/23) Change `FetchHttpClient` entry point from `@shlinkio/shlink-js-sdk/browser` to `@shlinkio/shlink-js-sdk/fetch`, and decouple it from `window` object.
 * [#228](https://github.com/shlinkio/shlink-js-sdk/issues/228) When any method of the `ShlinkApiClient` can receive both a `shortCode` and a `domain`, they are now together in a new `ShortUrlIdentifier` object.
 * [#227](https://github.com/shlinkio/shlink-js-sdk/issues/227) Update all `ShlinkApiClient` methods so that the abort signal is part of the last optional object param of every public method.
 * [#226](https://github.com/shlinkio/shlink-js-sdk/issues/226) This package is now built as ES module only.
