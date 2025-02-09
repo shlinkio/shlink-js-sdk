@@ -9,3 +9,8 @@
   - [Tags](/contexts/tags)
   - [Domains](/contexts/domains)
   - [Redirect rules](/contexts/redirect-rules)
+
+---
+
+- [Changelog](/changelog)
+- [:octocat: Fork me on GitHub](https://github.com/shlinkio/shlink-php-sdk/)
