@@ -1,36 +1,25 @@
-import { ShlinkApiClient } from '../../../src';
-import { NodeHttpClient } from '../../../src/node';
+import { apiClient } from '../api-client';
 
 describe('short-urls', () => {
   it('interacts with the short URLs', async () => {
-    const apiKey = process.env.SHLINK_API_KEY;
-    if (!apiKey) {
-      throw new Error('API key not found in SHLINK_API_KEY env');
-    }
-
-    const client = new ShlinkApiClient(new NodeHttpClient(), {
-      baseUrl: 'http://localhost:8765',
-      apiKey,
-    });
-
     // Create a short URL
     const longUrl = 'https://example.com';
-    const shortUrl = await client.createShortUrl({ longUrl });
+    const shortUrl = await apiClient.createShortUrl({ longUrl });
     expect(shortUrl.longUrl).toEqual(longUrl);
 
     // List short URLs
-    const shortUrls = await client.listShortUrls();
+    const shortUrls = await apiClient.listShortUrls();
     expect(shortUrls.data).toHaveLength(1);
     expect(shortUrls.data[0]).toEqual(shortUrl);
 
     // Update short URL
-    const tags = ['foo', 'bar'];
-    const updatedShortUrl = await client.updateShortUrl(shortUrl, { tags });
+    const tags = ['one', 'two'];
+    const updatedShortUrl = await apiClient.updateShortUrl(shortUrl, { tags });
     expect(updatedShortUrl.tags).toEqual(tags);
 
     // Delete short URL
-    await client.deleteShortUrl(shortUrl);
-    const shortUrlsAfterDeletion = await client.listShortUrls();
+    await apiClient.deleteShortUrl(shortUrl);
+    const shortUrlsAfterDeletion = await apiClient.listShortUrls();
     expect(shortUrlsAfterDeletion.data).toHaveLength(0);
   });
 });
