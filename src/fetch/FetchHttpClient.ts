@@ -1,6 +1,6 @@
 import type { HttpClient, RequestOptions } from '../api';
 
-type Fetch = typeof window.fetch;
+type Fetch = typeof globalThis.fetch;
 
 const applicationJsonHeader = { 'Content-Type': 'application/json' };
 
@@ -23,7 +23,7 @@ const withJsonContentType = (options?: RequestOptions): RequestInit | undefined 
 export class FetchHttpClient implements HttpClient {
   readonly #fetch: Fetch;
 
-  constructor(fetch: Fetch = window.fetch.bind(window)) {
+  constructor(fetch: Fetch = globalThis.fetch.bind(globalThis)) {
     this.#fetch = fetch;
   }
 
