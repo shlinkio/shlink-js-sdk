@@ -6,4 +6,4 @@ services:
         volumes:
             - ./:/shlink-js-sdk
         ports:
-            - '3003:3003'
+            - '3033:3033' # Docs

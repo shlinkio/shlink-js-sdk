@@ -1,0 +1,12 @@
+:root {
+    --content-max-width: 80em;
+    --theme-color: #4696e5;
+}
+
+.sidebar-nav ul {
+    margin-left: 0;
+}
+
+.sidebar-nav ul li {
+    padding-left: 15px;
+}
