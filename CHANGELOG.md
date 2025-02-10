@@ -4,9 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [2.0.0] - 2025-02-10
 ### Added
 * [#4](https://github.com/shlinkio/shlink-js-sdk/issues/4) Add an integration test suite that tests the SDK against all supported versions
+* [#3](https://github.com/shlinkio/shlink-js-sdk/issues/3) Add extended documentation with docsify and publish via GitHub Pages
 
 ### Changed
 * [#23](https://github.com/shlinkio/shlink-js-sdk/issues/23) Change `FetchHttpClient` entry point from `@shlinkio/shlink-js-sdk/browser` to `@shlinkio/shlink-js-sdk/fetch`, and decouple it from `window` object.
