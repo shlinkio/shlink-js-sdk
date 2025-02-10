@@ -31,6 +31,7 @@ result.data.forEach((shortUrl) => {
   console.log(`Short URL: ${shortUrl.shortUrl}`);
   console.log(`Long URL: ${shortUrl.longUrl}`);
 });
+console.log(result.pagination);
 ```
 
 ### Get individual short URLs
