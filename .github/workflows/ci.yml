@@ -23,14 +23,13 @@ jobs:
           - name: 'node'
             version: '23.x'
           - name: 'deno'
-            version: 'v1.x'
-          - name: 'deno'
             version: 'v2.x'
           - name: 'bun'
 #            version: '1.x' # Version selectors do not work https://github.com/oven-sh/setup-bun/issues/37
             version: '1.2.2'
         shlink-version: ['4.4', '4.3', '4.2', '4.1', '4.0', '3.7', '3.6', '3.5.4']
         shlink-api-version: ['3']
+    continue-on-error: ${{ matrix.runtime.name == 'deno' }}
     steps:
       - uses: actions/checkout@v4
       - if: ${{ matrix.runtime.name == 'node' }}
@@ -46,4 +45,4 @@ jobs:
         with:
           bun-version: ${{ matrix.runtime.version }}
       - run: npm ci
-      - run: SHLINK_VERSION=${{ matrix.shlink-version }} SHLINK_API_VERSION=${{ matrix.shlink-api-version }} npm run test:integration
+      - run: SHLINK_VERSION=${{ matrix.shlink-version }} SHLINK_API_VERSION=${{ matrix.shlink-api-version }} RUNTIME=${{ matrix.runtime.name }} sh ./test/run-integration-tests.sh

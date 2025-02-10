@@ -5,6 +5,7 @@ if [ -z "${SHLINK_VERSION}" ]; then
   exit 1
 fi
 
+RUNTIME=${RUNTIME:='node'}
 export SHLINK_VERSION=${SHLINK_VERSION}
 export SHLINK_API_VERSION=${SHLINK_API_VERSION:='3'}
 PORT="8765"
@@ -13,8 +14,14 @@ CONTAINER=$(docker run --rm -d -p ${PORT}:8080 -e DEFAULT_DOMAIN=localhost:${POR
 sleep 2 # Let's give the server a couple of seconds to start
 export SHLINK_API_KEY=$(docker exec ${CONTAINER} shlink api-key:generate | grep "Generated API key" | sed 's/.*Generated\ API\ key\:\ \"\(.*\)\".*/\1/')
 
-### TODO Run tests here
-npm run test -- --config vitest-integration.config.ts
+if [ "${RUNTIME}" = "node" ]; then
+  npm run test -- --config vitest-integration.config.ts
+elif [ "${RUNTIME}" = "deno" ]; then
+  deno run --allow-read=$PWD --allow-sys ./node_modules/.bin/vitest -- run --config vitest-integration.config.ts
+elif [ "${RUNTIME}" = "bun" ]; then
+  bun run test -- --config vitest-integration.config.ts
+fi
+
 TESTS_EXIT_CODE=$?
 
 docker stop ${CONTAINER}
