@@ -15,4 +15,4 @@
 ---
 
 - [Changelog](/changelog)
-- [:octocat: Fork me on GitHub](https://github.com/shlinkio/shlink-php-sdk/)
+- [:octocat: Fork me on GitHub](https://github.com/shlinkio/shlink-js-sdk/)
