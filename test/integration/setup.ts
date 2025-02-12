@@ -12,5 +12,6 @@ afterEach(async () => {
   await Promise.all([
     ...shortUrls.data.map((shortUrl) => apiClient.deleteShortUrl(shortUrl)),
     tags.data.length > 0 ? apiClient.deleteTags(tags.data) : Promise.resolve(),
+    apiClient.deleteOrphanVisits(),
   ]);
 });
