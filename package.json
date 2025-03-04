@@ -35,7 +35,7 @@
     "test:integration": "test/run-integration-tests.sh",
     "test:ci": "npm run test -- --coverage",
     "lint": "eslint src test",
-    "types": "tsc",
+    "types": "tsc --erasableSyntaxOnly",
     "docs:dev": "serve docs --listen 3033"
   },
   "devDependencies": {

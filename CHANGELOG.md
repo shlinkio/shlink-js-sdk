@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+### Added
+* *Nothing*
+
+### Changed
+* [#238](https://github.com/shlinkio/shlink-js-sdk/issues/238) Enable `erasableSyntaxOnly` when typechecking.
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* *Nothing*
+
+### Fixed
+* *Nothing*
+
+
 ## [2.0.0] - 2025-02-10
 ### Added
 * [#4](https://github.com/shlinkio/shlink-js-sdk/issues/4) Add an integration test suite that tests the SDK against all supported versions
