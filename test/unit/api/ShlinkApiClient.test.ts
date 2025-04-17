@@ -1,5 +1,5 @@
 import { fromPartial } from '@total-typescript/shoehorn';
-import type { HttpClient } from '../../../src';
+import type { HttpClient, ShlinkApiClientOptions } from '../../../src';
 import { ShlinkApiClient } from '../../../src';
 import type {
   ShlinkDomain,
@@ -20,24 +20,31 @@ describe('ShlinkApiClient', () => {
     ['abc123', undefined],
     ['abc123', 'example.com'],
   ];
+  const createApiClient = (options?: ShlinkApiClientOptions) => new ShlinkApiClient(
+    httpClient,
+    { baseUrl: 'https://s.test', apiKey: '' },
+    options,
+  );
+
   let apiClient: ShlinkApiClient;
 
   beforeEach(() => {
-    apiClient = new ShlinkApiClient(httpClient, { baseUrl: 'https://s.test', apiKey: '' });
+    apiClient = createApiClient();
   });
 
   describe('with custom client options', () => {
-    it('allows passing HTTP credentials along to the API server', async () => {
-      const apiClient = new ShlinkApiClient(httpClient,
-        { baseUrl: 'https://s.test', apiKey: '' },
-        { requestCredentials: 'include' },
-      );
+    it.each([
+      'omit' as const,
+      'same-origin' as const,
+      'include' as const,
+    ])('allows passing HTTP credentials along to the API server', async (requestCredentials) => {
+      const apiClient = createApiClient({ requestCredentials });
 
       await apiClient.health();
 
       expect(jsonRequest).toHaveBeenCalledWith(
         expect.anything(),
-        expect.objectContaining({ credentials: 'include' }),
+        expect.objectContaining({ credentials: requestCredentials }),
       );
     });
   });

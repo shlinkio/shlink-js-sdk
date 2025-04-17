@@ -15,22 +15,18 @@ export class NodeHttpClient implements HttpClient {
   }
 
   async jsonRequest<T>(url: string, options?: RequestOptions): Promise<T> {
-    return this.makeRequest<T>(
-      url,
-      responseDataToJson,
-      options,
-    );
+    return this.#makeRequest<T>(url, responseDataToJson, options);
   }
 
   async emptyRequest(url: string, options?: RequestOptions): Promise<void> {
-    return this.makeRequest<void>(
+    return this.#makeRequest<void>(
       url,
       (responseData, status) => (status && status >= 400 ? responseDataToJson(responseData) : undefined),
       options,
     );
   }
 
-  private async makeRequest<T>(
+  async #makeRequest<T>(
     url: string,
     parseBody: (responseData: Uint8Array[], statusCode?: number) => T,
     options?: RequestOptions,
