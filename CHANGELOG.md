@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 ### Added
-* *Nothing*
+* [#273](https://github.com/shlinkio/shlink-js-sdk/pull/273) Allow users to provide a `credentials` parameter to the underlying `[Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) made by `ShlinkClient`s.
 
 ### Changed
 * [#238](https://github.com/shlinkio/shlink-js-sdk/issues/238) Enable `erasableSyntaxOnly` when typechecking.

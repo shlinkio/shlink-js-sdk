@@ -1,7 +1,10 @@
+export type RequestCredentials = 'omit' | 'same-origin' | 'include';
+
 export type RequestOptions = {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   body?: string;
   headers?: Record<string, string>;
+  credentials?: RequestCredentials;
   signal?: AbortSignal;
 };
 

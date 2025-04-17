@@ -23,7 +23,7 @@ import type {
   ShlinkVisitsOverview,
   ShlinkVisitsParams,
 } from '../api-contract';
-import type { HttpClient, RequestOptions } from './HttpClient';
+import type { HttpClient, RequestCredentials, RequestOptions } from './HttpClient';
 import type { ApiVersion } from './utils';
 import {
   buildShlinkBaseUrl,
@@ -31,6 +31,10 @@ import {
   queryParamsToString,
   replaceAuthorityFromUri,
 } from './utils';
+
+export type ShlinkApiClientOptions = {
+  requestCredentials?: RequestCredentials;
+};
 
 type ShlinkRequestOptions = {
   url: string;
@@ -50,11 +54,13 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   #apiVersion: ApiVersion;
   readonly #httpClient: HttpClient;
   readonly #serverInfo: ServerInfo;
+  readonly #clientOptions: ShlinkApiClientOptions;
 
-  public constructor(httpClient: HttpClient, serverInfo: ServerInfo)
+  public constructor(httpClient: HttpClient, serverInfo: ServerInfo, clientOptions: ShlinkApiClientOptions = {})
   {
     this.#httpClient = httpClient;
     this.#serverInfo = serverInfo;
+    this.#clientOptions = clientOptions;
     this.#apiVersion = 3;
   }
 
@@ -250,6 +256,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
       method,
       body: body && JSON.stringify(body),
       headers: { 'X-Api-Key': this.#serverInfo.apiKey },
+      credentials: this.#clientOptions.requestCredentials,
       signal,
     }];
   }
