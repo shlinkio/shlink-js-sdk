@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@shlinkio/eslint-config-js-coding-standard": "~3.5.0",
-    "@stylistic/eslint-plugin": "^4.2.0",
+    "@stylistic/eslint-plugin": "^4.4.0",
     "@total-typescript/shoehorn": "^0.1.2",
     "@vitest/coverage-v8": "^3.1.4",
     "eslint": "^9.27.0",
