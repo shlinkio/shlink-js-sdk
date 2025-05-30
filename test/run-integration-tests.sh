@@ -17,7 +17,7 @@ export SHLINK_API_KEY=$(docker exec ${CONTAINER} shlink api-key:generate | grep 
 if [ "${RUNTIME}" = "node" ]; then
   npm run test -- --config vitest-integration.config.ts
 elif [ "${RUNTIME}" = "deno" ]; then
-  deno run --allow-read=$PWD --allow-sys ./node_modules/.bin/vitest -- run --config vitest-integration.config.ts
+  deno run -A npm:vitest run --config vitest-integration.config.ts
 elif [ "${RUNTIME}" = "bun" ]; then
   bun run test -- --config vitest-integration.config.ts
 fi

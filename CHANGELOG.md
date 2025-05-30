@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+### Added
+* *Nothing*
+
+### Changed
+* *Nothing*
+
+### Deprecated
+* *Nothing*
+
+### Removed
+* *Nothing*
+
+### Fixed
+* [#245](https://github.com/shlinkio/shlink-js-sdk/issues/245) Fix integration tests running in deno.
+
+
 ## [2.1.0] - 2025-04-17
 ### Added
 * [#273](https://github.com/shlinkio/shlink-js-sdk/pull/273) Allow users to provide a `credentials` parameter to the underlying `[Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials) made by `ShlinkClient`s.
