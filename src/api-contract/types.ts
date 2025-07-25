@@ -241,7 +241,25 @@ export type ShlinkShortUrlsListParams = {
   excludePastValidUntil?: boolean;
 };
 
-export type ShlinkRedirectConditionType = 'device' | 'language' | 'query-param' | 'ip-address' | 'geolocation-country-code' | 'geolocation-city-name';
+export type ShlinkRedirectConditionType =
+  | 'device'
+  | 'language'
+  | 'query-param'
+  | 'any-value-query-param'
+  | 'valueless-query-param'
+  | 'ip-address'
+  | 'geolocation-country-code'
+  | 'geolocation-city-name';
+
+export type ShlinkDeviceType =
+  | 'android'
+  | 'ios'
+  | 'mobile'
+  | 'windows'
+  | 'macos'
+  | 'linux'
+  | 'chromeos'
+  | 'desktop';
 
 export type ShlinkRedirectCondition = {
   type: ShlinkRedirectConditionType;
