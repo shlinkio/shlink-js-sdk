@@ -27,7 +27,7 @@ jobs:
           - name: 'bun'
 #            version: '1.x' # Version selectors do not work https://github.com/oven-sh/setup-bun/issues/37
             version: '1.2.2'
-        shlink-version: ['4.4', '4.3', '4.2', '4.1', '4.0', '3.7', '3.6', '3.5.4']
+        shlink-version: ['4.5', '4.4', '4.3', '4.2', '4.1', '4.0', '3.7', '3.6', '3.5.4']
         shlink-api-version: ['3']
     steps:
       - uses: actions/checkout@v4
