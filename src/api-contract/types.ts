@@ -30,8 +30,7 @@ export type ShlinkShortUrl = Required<ShlinkShortUrlIdentifier> & {
   shortUrl: string;
   longUrl: string;
   dateCreated: string;
-  /** Available since Shlink 3.4.0 */
-  visitsSummary?: ShlinkVisitsSummary;
+  visitsSummary: ShlinkVisitsSummary;
   meta: Required<Nullable<ShlinkShortUrlMeta>>;
   tags: string[];
   title?: string | null;
@@ -241,7 +240,25 @@ export type ShlinkShortUrlsListParams = {
   excludePastValidUntil?: boolean;
 };
 
-export type ShlinkRedirectConditionType = 'device' | 'language' | 'query-param' | 'ip-address' | 'geolocation-country-code' | 'geolocation-city-name';
+export type ShlinkRedirectConditionType =
+  | 'device'
+  | 'language'
+  | 'query-param'
+  | 'any-value-query-param' // Since Shlink 4.5.0
+  | 'valueless-query-param' // Since Shlink 4.5.0
+  | 'ip-address'
+  | 'geolocation-country-code' // Since Shlink 4.3.0
+  | 'geolocation-city-name'; // Since Shlink 4.3.0
+
+export type ShlinkDeviceType =
+  | 'android'
+  | 'ios'
+  | 'mobile'
+  | 'windows'
+  | 'macos'
+  | 'linux'
+  | 'chromeos'
+  | 'desktop';
 
 export type ShlinkRedirectCondition = {
   type: ShlinkRedirectConditionType;

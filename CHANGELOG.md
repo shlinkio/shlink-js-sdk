@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [2.2.0] - 2025-07-25
 ### Added
-* *Nothing*
+* Add support for features introduced in Shlink 4.5.0, like more device types, and `any-value-query-param` and `valueless-query-param` redirect conditions.
 
 ### Changed
 * *Nothing*
