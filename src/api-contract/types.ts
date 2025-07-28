@@ -263,7 +263,7 @@ export type ShlinkDeviceType =
 export type ShlinkRedirectCondition = {
   type: ShlinkRedirectConditionType;
   matchKey: string | null;
-  matchValue: string;
+  matchValue: string | null;
 };
 
 export type ShlinkRedirectRuleData = {
