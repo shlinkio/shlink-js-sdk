@@ -46,7 +46,7 @@
     "eslint": "^9.35.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "jsdom": "^26.1.0",
+    "jsdom": "^27.0.0",
     "serve": "^14.2.5",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.42.0",
