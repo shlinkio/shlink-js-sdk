@@ -2,6 +2,10 @@
   "name": "@shlinkio/shlink-js-sdk",
   "description": "A Shlink's REST API client for JS runtimes: the browser, Node.js, Deno and Bun",
   "homepage": "https://shlink.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shlinkio/shlink-js-sdk.git"
+  },
   "author": "Alejandro Celaya <alejandro@alejandrocelaya.com>",
   "license": "MIT",
   "type": "module",
