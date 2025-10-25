@@ -11,7 +11,7 @@ jobs:
     uses: shlinkio/github-actions/.github/workflows/js-lib-ci.yml@main
     secrets: inherit
     with:
-      install-playwright: 'false'
+      install-playwright: false
 
   integration-tests:
     runs-on: ubuntu-24.04
