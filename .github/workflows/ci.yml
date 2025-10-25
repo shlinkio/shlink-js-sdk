@@ -10,6 +10,8 @@ jobs:
   ci:
     uses: shlinkio/github-actions/.github/workflows/js-lib-ci.yml@main
     secrets: inherit
+    with:
+      install-playwright: 'false'
 
   integration-tests:
     runs-on: ubuntu-24.04
@@ -19,9 +21,9 @@ jobs:
           - name: 'node'
             version: '22.x'
           - name: 'node'
-            version: '23.x'
-          - name: 'node'
             version: '24.x'
+          - name: 'node'
+            version: '25.x'
           - name: 'deno'
             version: 'v2.x'
           - name: 'bun'

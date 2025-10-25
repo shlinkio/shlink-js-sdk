@@ -38,7 +38,8 @@
     "test": "vitest run",
     "test:integration": "test/run-integration-tests.sh",
     "test:ci": "npm run test -- --coverage",
-    "lint": "eslint src test",
+    "lint": "eslint src test *.config.{js,ts}",
+    "lint:fix": "npm run lint -- --fix",
     "types": "tsc --erasableSyntaxOnly",
     "docs:dev": "serve docs --listen 3033"
   },

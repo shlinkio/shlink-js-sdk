@@ -2,7 +2,7 @@ services:
     shlink_js_sdk:
         container_name: shlink_js_sdk
         user: 1000:1000
-        image: node:22.10-alpine
+        image: node:24.10-alpine
         volumes:
             - ./:/shlink-js-sdk
         ports:
