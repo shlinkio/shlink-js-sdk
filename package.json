@@ -38,7 +38,8 @@
     "test": "vitest run",
     "test:integration": "test/run-integration-tests.sh",
     "test:ci": "npm run test -- --coverage",
-    "lint": "eslint src test",
+    "lint": "eslint src test *.config.{js,ts}",
+    "lint:fix": "npm run lint -- --fix",
     "types": "tsc --erasableSyntaxOnly",
     "docs:dev": "serve docs --listen 3033"
   },
@@ -46,7 +47,7 @@
     "@shlinkio/eslint-config-js-coding-standard": "~3.7.0",
     "@stylistic/eslint-plugin": "^5.5.0",
     "@total-typescript/shoehorn": "^0.1.2",
-    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/coverage-v8": "^4.0.3",
     "eslint": "^9.38.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
@@ -56,6 +57,6 @@
     "typescript-eslint": "^8.46.2",
     "vite": "^7.1.12",
     "vite-plugin-dts": "^4.5.4",
-    "vitest": "^3.0.2"
+    "vitest": "^4.0.3"
   }
 }
