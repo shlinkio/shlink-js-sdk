@@ -47,7 +47,7 @@
     "@shlinkio/eslint-config-js-coding-standard": "~3.7.0",
     "@stylistic/eslint-plugin": "^5.5.0",
     "@total-typescript/shoehorn": "^0.1.2",
-    "@vitest/coverage-v8": "^4.0.3",
+    "@vitest/coverage-v8": "^4.0.6",
     "eslint": "^9.38.0",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
