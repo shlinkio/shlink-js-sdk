@@ -21,6 +21,7 @@ import type {
   ShlinkVisitsList,
   ShlinkVisitsOverview,
   ShlinkVisitsParams,
+  ShlinkWithDomainVisitsParams,
 } from './types';
 
 export type ShlinkApiClient = {
@@ -60,13 +61,13 @@ export type ShlinkApiClient = {
     params?: ShlinkVisitsParams & Abortable,
   ): Promise<ShlinkVisitsList>;
 
-  getTagVisits(tag: string, params?: ShlinkVisitsParams & Abortable): Promise<ShlinkVisitsList>;
+  getTagVisits(tag: string, params?: ShlinkWithDomainVisitsParams & Abortable): Promise<ShlinkVisitsList>;
 
   getDomainVisits(domain: string, params?: ShlinkVisitsParams & Abortable): Promise<ShlinkVisitsList>;
 
   getOrphanVisits(params?: ShlinkOrphanVisitsParams & Abortable): Promise<ShlinkVisitsList>;
 
-  getNonOrphanVisits(params?: ShlinkVisitsParams & Abortable): Promise<ShlinkVisitsList>;
+  getNonOrphanVisits(params?: ShlinkWithDomainVisitsParams & Abortable): Promise<ShlinkVisitsList>;
 
   deleteShortUrlVisits(
     shortUrlId: ShlinkShortUrlIdentifier,
