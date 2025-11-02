@@ -152,7 +152,11 @@ export type ShlinkVisitsParams = {
   excludeBots?: boolean;
 };
 
-export type ShlinkOrphanVisitsParams = ShlinkVisitsParams & {
+export type ShlinkWithDomainVisitsParams = ShlinkVisitsParams & {
+  domain?: string | 'DEFAULT';
+};
+
+export type ShlinkOrphanVisitsParams = ShlinkWithDomainVisitsParams & {
   type?: ShlinkOrphanVisitType;
 };
 
@@ -195,11 +199,17 @@ export type ShlinkShortUrlsListParams = {
   domain?: string | 'DEFAULT';
   tags?: string[];
   tagsMode?: TagsFilteringMode;
+  /** Available since Shlink 4.6.0 */
+  excludeTags?: string[];
+  /** Available since Shlink 4.6.0 */
+  excludeTagsMode?: TagsFilteringMode;
   orderBy?: ShlinkShortUrlsOrder;
   startDate?: string;
   endDate?: string;
   excludeMaxVisitsReached?: boolean;
   excludePastValidUntil?: boolean;
+  /** Available since Shlink 4.6.0 */
+  apiKeyName?: string;
 };
 
 export type ShlinkRedirectConditionType =

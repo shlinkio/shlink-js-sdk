@@ -22,6 +22,7 @@ import type {
   ShlinkVisitsList,
   ShlinkVisitsOverview,
   ShlinkVisitsParams,
+  ShlinkWithDomainVisitsParams,
 } from '../api-contract';
 import type { HttpClient, RequestCredentials, RequestOptions } from './HttpClient';
 import type { ApiVersion } from './utils';
@@ -144,7 +145,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
 
   public async getTagVisits(
     tag: string,
-    { signal, ...params }: ShlinkVisitsParams & Abortable = {},
+    { signal, ...params }: ShlinkWithDomainVisitsParams & Abortable = {},
   ): Promise<ShlinkVisitsList> {
     return this.#performVisitsRequest({ url: `/tags/${tag}/visits`, query: params, signal });
   }
@@ -163,7 +164,7 @@ export class ShlinkApiClient implements BaseShlinkApiClient {
   }
 
   public async getNonOrphanVisits(
-    { signal, ...params }: ShlinkVisitsParams & Abortable = {},
+    { signal, ...params }: ShlinkWithDomainVisitsParams & Abortable = {},
   ): Promise<ShlinkVisitsList> {
     return this.#performVisitsRequest({ url: '/visits/non-orphan', query: params, signal });
   }
