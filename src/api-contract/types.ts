@@ -6,15 +6,6 @@ export type Abortable = {
   signal?: AbortSignal;
 };
 
-/**
- * @deprecated Shlink 4.0.0 no longer uses this.
- */
-export type ShlinkDeviceLongUrls = {
-  android?: string | null;
-  ios?: string | null;
-  desktop?: string | null;
-};
-
 export type ShlinkShortUrlMeta = {
   validSince?: string;
   validUntil?: string;
@@ -41,11 +32,6 @@ export type ShlinkShortUrl = Required<ShlinkShortUrlIdentifier> & {
    * Available since Shlink 4.3.0
    */
   hasRedirectRules?: boolean;
-
-  /** @deprecated Use `visitsSummary.total` instead. Removed in Shlink 4.0.0 */
-  visitsCount?: number;
-  /** @deprecated Removed in Shlink 4.0.0 */
-  deviceLongUrls?: Required<ShlinkDeviceLongUrls>,
 };
 
 export type ShlinkEditShortUrlData = {
@@ -57,11 +43,6 @@ export type ShlinkEditShortUrlData = {
   validSince?: string | null;
   validUntil?: string | null;
   maxVisits?: number | null;
-
-  /** @deprecated Ignored by Shlink 4.0.0 */
-  validateUrl?: boolean;
-  /** @deprecated Ignored by Shlink 4.0.0. Use redirect rules instead */
-  deviceLongUrls?: ShlinkDeviceLongUrls;
 };
 
 export type ShlinkCreateShortUrlData = Omit<ShlinkEditShortUrlData, 'deviceLongUrls' | 'longUrl'> & {
@@ -70,13 +51,6 @@ export type ShlinkCreateShortUrlData = Omit<ShlinkEditShortUrlData, 'deviceLongU
   shortCodeLength?: number;
   domain?: string;
   findIfExists?: boolean;
-
-  /** @deprecated Ignored by Shlink 4.0.0. Use redirect rules instead */
-  deviceLongUrls?: {
-    android?: string;
-    ios?: string;
-    desktop?: string;
-  }
 };
 
 export type ShlinkShortUrlsList = {
@@ -98,16 +72,10 @@ export type ShlinkTagsStats = {
   tag: string;
   shortUrlsCount: number;
   visitsSummary: ShlinkVisitsSummary;
-
-  /** @deprecated Not returned by Shlink 4.0.0. Use `visitsSummary.total` instead */
-  visitsCount?: number;
 };
 
 export type ShlinkTagsList = {
   data: string[];
-
-  /** @deprecated Never returned by Shlink 4.0.0 */
-  stats?: ShlinkTagsStats[];
 };
 
 export type ShlinkTagsStatsList = {
@@ -174,11 +142,6 @@ export type ShlinkDeleteVisitsResult = {
 export type ShlinkVisitsOverview = {
   nonOrphanVisits: ShlinkVisitsSummary;
   orphanVisits: ShlinkVisitsSummary;
-
-  /** @deprecated Use `nonOrphanVisits.total` instead */
-  visitsCount?: number;
-  /** @deprecated Use `orphanVisits.total` instead */
-  orphanVisitsCount?: number;
 };
 
 export type ShlinkVisitsParams = {
@@ -190,7 +153,6 @@ export type ShlinkVisitsParams = {
 };
 
 export type ShlinkOrphanVisitsParams = ShlinkVisitsParams & {
-  /** Ignored by Shlink older than v4.0.0 */
   type?: ShlinkOrphanVisitType;
 };
 
