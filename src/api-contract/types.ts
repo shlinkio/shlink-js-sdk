@@ -181,7 +181,10 @@ export type ShlinkDomainsList = {
   defaultRedirects: ShlinkDomainRedirects;
 };
 
-export type TagsFilteringMode = 'all' | 'any';
+export type ShlinkTagsFilteringMode = 'all' | 'any';
+
+/** @deprecated Use ShlinkTagsFilteringMode instead */
+export type TagsFilteringMode = ShlinkTagsFilteringMode;
 
 export type ShlinkShortUrlsOrder = {
   field?: 'dateCreated' | 'shortCode' | 'longUrl' | 'title' | 'visits' | 'nonBotVisits';
@@ -198,11 +201,11 @@ export type ShlinkShortUrlsListParams = {
    */
   domain?: string | 'DEFAULT';
   tags?: string[];
-  tagsMode?: TagsFilteringMode;
+  tagsMode?: ShlinkTagsFilteringMode;
   /** Available since Shlink 4.6.0 */
   excludeTags?: string[];
   /** Available since Shlink 4.6.0 */
-  excludeTagsMode?: TagsFilteringMode;
+  excludeTagsMode?: ShlinkTagsFilteringMode;
   orderBy?: ShlinkShortUrlsOrder;
   startDate?: string;
   endDate?: string;
