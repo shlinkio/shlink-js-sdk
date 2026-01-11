@@ -223,7 +223,9 @@ export type ShlinkRedirectConditionType =
   | 'valueless-query-param' // Since Shlink 4.5.0
   | 'ip-address'
   | 'geolocation-country-code' // Since Shlink 4.3.0
-  | 'geolocation-city-name'; // Since Shlink 4.3.0
+  | 'geolocation-city-name' // Since Shlink 4.3.0
+  | 'before-date' // Since Shlink 5.0.0
+  | 'after-date'; // Since Shlink 5.0.0
 
 export type ShlinkDeviceType =
   | 'android'
