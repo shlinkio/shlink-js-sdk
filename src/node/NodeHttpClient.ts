@@ -7,6 +7,7 @@ type NodeHttp = typeof nodeHttp;
 
 const responseDataToJson = (responseData: Uint8Array[]) => JSON.parse(Buffer.concat(responseData).toString());
 
+/** @deprecated Use FetchHttpClient instead */
 export class NodeHttpClient implements HttpClient {
   readonly #http: NodeHttp;
 
