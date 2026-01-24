@@ -48,7 +48,7 @@
     "@stylistic/eslint-plugin": "^5.7.0",
     "@total-typescript/shoehorn": "^0.1.2",
     "@types/node": "^25.0.9",
-    "@vitest/coverage-v8": "^4.0.17",
+    "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.39.2",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
