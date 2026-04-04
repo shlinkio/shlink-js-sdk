@@ -6,12 +6,12 @@
     "sourceMap": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "noImplicitAny": true,
     "target": "es2022",
     "lib": ["dom", "esnext"],
     "esModuleInterop": true,
+    "moduleResolution": "bundler",
     "module": "esnext",
     "skipLibCheck": true,
     "types": ["vite/client", "vitest/globals"]
