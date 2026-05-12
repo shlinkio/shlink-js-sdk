@@ -1,10 +1,10 @@
 import { resolve } from 'path';
-import dts from 'vite-plugin-dts';
+import dts from 'unplugin-dts/vite';
 import { defineConfig } from 'vitest/config';
 
 // eslint-disable-next-line no-restricted-exports
 export default defineConfig({
-  plugins: [dts({ rollupTypes: true })],
+  plugins: [dts({ entryRoot: 'src' })],
 
   build: {
     lib: {
@@ -16,7 +16,7 @@ export default defineConfig({
       },
       formats: ['es'], // Generate ES module only
     },
-    rollupOptions: {
+    rolldownOptions: {
       // Keep references to these node dependencies, but don't try to bundle them
       external: ['node:http', 'node:https'],
     },
