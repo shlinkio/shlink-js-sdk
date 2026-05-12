@@ -19,11 +19,11 @@ jobs:
       matrix:
         runtime:
           - name: 'node'
-            version: '22.x'
-          - name: 'node'
             version: '24.x'
           - name: 'node'
             version: '25.x'
+          - name: 'node'
+            version: '26.x'
           - name: 'deno'
             version: 'v2.x'
           - name: 'bun'
@@ -32,7 +32,7 @@ jobs:
         shlink-version: ['5.0', '4.6', '4.5', '4.4', '4.3', '4.2', '4.1', '4.0']
         shlink-api-version: ['3']
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - if: ${{ matrix.runtime.name == 'node' }}
         uses: actions/setup-node@v6
