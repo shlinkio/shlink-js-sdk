@@ -225,7 +225,8 @@ export type ShlinkRedirectConditionType =
   | 'geolocation-country-code' // Since Shlink 4.3.0
   | 'geolocation-city-name' // Since Shlink 4.3.0
   | 'before-date' // Since Shlink 5.0.0
-  | 'after-date'; // Since Shlink 5.0.0
+  | 'after-date' // Since Shlink 5.0.0
+  | 'browser'; // Since Shlink 5.1.0
 
 export type ShlinkDeviceType =
   | 'android'
@@ -236,6 +237,14 @@ export type ShlinkDeviceType =
   | 'linux'
   | 'chromeos'
   | 'desktop';
+
+export type ShlinkBrowser =
+  | 'chrome'
+  | 'firefox'
+  | 'edge'
+  | 'safari'
+  | 'opera'
+  | 'android_browser';
 
 export type ShlinkRedirectCondition = {
   type: ShlinkRedirectConditionType;
