@@ -4,7 +4,7 @@ import { defineConfig } from 'vitest/config';
 
 // eslint-disable-next-line no-restricted-exports
 export default defineConfig({
-  plugins: [dts({ entryRoot: 'src' })],
+  plugins: [dts({ entryRoot: 'src', exclude: ['test', 'vite.config.ts'] })],
 
   build: {
     lib: {

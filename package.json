@@ -17,15 +17,15 @@
       "import": "./dist/index.js"
     },
     "./api-contract": {
-      "types": "./dist/api-contract.d.ts",
+      "types": "./dist/api-contract/index.d.ts",
       "import": "./dist/api-contract.js"
     },
     "./fetch": {
-      "types": "./dist/fetch.d.ts",
+      "types": "./dist/fetch/index.d.ts",
       "import": "./dist/fetch.js"
     },
     "./node": {
-      "types": "./dist/node.d.ts",
+      "types": "./dist/node/index.d.ts",
       "import": "./dist/node.js"
     },
     "./package.json": "./package.json"
