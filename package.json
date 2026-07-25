@@ -44,14 +44,14 @@
     "docs:dev": "serve docs --listen 3033"
   },
   "devDependencies": {
-    "@shlinkio/eslint-config-js-coding-standard": "~3.7.0",
-    "@stylistic/eslint-plugin": "^5.7.1",
+    "@shlinkio/eslint-config-js-coding-standard": "~3.9.0",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "@total-typescript/shoehorn": "^0.1.2",
     "@types/node": "^26.1.1",
     "@vitest/coverage-v8": "^4.1.10",
-    "eslint": "^9.39.2",
+    "eslint": "^10.8.0",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-simple-import-sort": "^14.0.0",
     "jsdom": "^29.1.1",
     "serve": "^14.2.6",
     "typescript": "^6.0.3",
