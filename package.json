@@ -48,7 +48,7 @@
     "docs:dev": "serve docs --listen 3033"
   },
   "devDependencies": {
-    "@shlinkio/eslint-config-js-coding-standard": "~4.0.0",
+    "@shlinkio/eslint-config-js-coding-standard": "~4.1.0",
     "@total-typescript/shoehorn": "^0.1.2",
     "@types/node": "^26.1.2",
     "@typescript/typescript6": "^6.0.2",
