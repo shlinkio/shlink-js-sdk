@@ -50,7 +50,7 @@
   "devDependencies": {
     "@shlinkio/eslint-config-js-coding-standard": "~4.2.0",
     "@total-typescript/shoehorn": "^0.1.2",
-    "@types/node": "^26.6.1",
+    "@types/node": "^26.6.2",
     "@typescript/typescript6": "^6.0.2",
     "@vitest/coverage-v8": "^5.0.1",
     "jsdom": "^30.0.1",
